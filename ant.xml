@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project name="antsample">
+
+  <property name="pyuic" location="D:\devel\Python34\Lib\site-packages\PyQt4\uic\pyuic.py"/>
+  <property name="cxfreeze" location="D:\devel\Python34\Scripts\cxfreeze"/>
+  
+  <target name="pyuic">
+    <exec executable="python">
+        <arg file="${pyuic}"/>
+        <arg file="mainform.ui"/>
+        <arg value="-o"/>
+        <arg file="mainform.py"/>
+    </exec>
+  </target>
+  
+  <target name="cxfreeze">
+    <exec executable="python">
+        <arg file="${cxfreeze}"/>
+        <arg value="conv_encoding_gui.pyw"/>
+    </exec>
+  </target>
+   
+  <target name="py2exe">
+    <exec executable="python">
+        <arg file="setup_py2exe.py"/>
+        <arg value="py2exe"/>
+    </exec>
+  </target>
+  
+
+</project>
