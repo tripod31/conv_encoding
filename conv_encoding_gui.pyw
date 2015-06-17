@@ -7,7 +7,7 @@ Created on 2015/06/16
 import sys
 import io
 import os
-from mainform import QtGui,Ui_MainWindow  # @UnresolvedImport
+from mainform import QtGui,Ui_MainWindow    # @UnresolvedImport
 from conv_encoding import process           # @UnresolvedImport
 from PyQt4.QtCore import QSettings
 
@@ -25,7 +25,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.comboBox_encoding.addItem("utf-8")
         self.ui.comboBox_encoding.addItem("cp932")
         self.ui.pushButton_dir.clicked.connect(self.choose_dir)
-        self.ui.pushButton_exec.clicked.connect(self.exec)
+        self.ui.pushButton_exec.clicked.connect(self.execute)
         self.ui.lineEdit_pattern.setText("*.txt")
         self.load_settings()
         
@@ -48,7 +48,7 @@ class MyForm(QtGui.QMainWindow):
     '''
     実行ボタン
     '''    
-    def exec(self):
+    def execute(self):
         start_dir = self.ui.lineEdit_start_dir.text()
         to_encoding = self.ui.comboBox_encoding.currentText()
         preview = self.ui.checkBox_preview.isChecked()
