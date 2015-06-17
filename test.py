@@ -22,19 +22,19 @@ def exec_command(cmd):
     p.wait()
     stdout_data, stderr_data = p.communicate()
     return p.returncode,byte2str(stdout_data),byte2str(stderr_data)
-            
+
 class MyTest(unittest.TestCase):
     def setUp(self):
         create_file()
     def test_1(self):
-        cmd = "python conv_encoding.py --start_dir test --preview --to_encoding utf-8 --pattern \.txt$"
+        cmd = "python conv_encoding.py --start_dir test --preview --to_encoding utf-8 --pattern *.txt"
         ret,stdout,stderr = exec_command(cmd)
         self.assertEqual(ret,0)
         self.assertEqual(len(stderr), 0)
         print( stdout)
         self.assertEqual(get_encoding("test/cp932.txt"),"cp932")
     def test_2(self):
-        cmd = "python conv_encoding.py --start_dir test --to_encoding utf-8 --pattern \.txt$"
+        cmd = "python conv_encoding.py --start_dir test --to_encoding utf-8 --pattern *.txt"
         ret,stdout,stderr = exec_command(cmd)
         self.assertEqual(ret,0)
         self.assertEqual(len(stderr), 0)
@@ -42,6 +42,6 @@ class MyTest(unittest.TestCase):
         self.assertEqual(get_encoding("test/cp932.txt"),"utf-8")
     def tearDown(self):
         pass
-    
+
 if __name__ == '__main__':
     unittest.main()
