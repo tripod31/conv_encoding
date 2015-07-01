@@ -9,7 +9,7 @@ import os.path
 import sys
 import fnmatch
 
-from yoshi.util import find_all_files,get_encoding
+from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch
 
 def process(start_dir,to_encoding,preview,pattern):
     if not os.path.exists(start_dir):
@@ -20,11 +20,7 @@ def process(start_dir,to_encoding,preview,pattern):
     count =0
     file_infos=[]
     for path in files:
-        '''
-        if(re.search(pattern,path)==None):
-            continue
-        '''
-        if not fnmatch.fnmatch(path, pattern):
+        if not is_match_patterns_fnmatch(path, pattern.split()):
             continue
         encoding = get_encoding(path)
         file_infos.append({"path":path,"encoding":encoding})

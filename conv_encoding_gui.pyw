@@ -23,7 +23,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.comboBox_encoding.addItem("utf-8")
-        self.ui.comboBox_encoding.addItem("cp932")
+        self.ui.comboBox_encoding.addItem("shift_jis")
         self.ui.pushButton_dir.clicked.connect(self.choose_dir)
         self.ui.pushButton_exec.clicked.connect(self.execute)
         self.ui.lineEdit_pattern.setText("*.txt")
