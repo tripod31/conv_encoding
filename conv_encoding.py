@@ -14,7 +14,7 @@ from yoshi.util import find_all_files,get_encoding
 def process(start_dir,to_encoding,preview,pattern):
     if not os.path.exists(start_dir):
         print("%s: does'nt exists" % start_dir )
-        sys.exit()
+        return
     
     files = find_all_files(start_dir)
     count =0
