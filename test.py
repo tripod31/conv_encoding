@@ -2,6 +2,7 @@
 import unittest
 import subprocess
 from yoshi.util import get_encoding
+from conv_encoding import process
 
 def create_file():
     f=open("test/utf8.txt","w",encoding="utf-8")
@@ -23,25 +24,33 @@ def exec_command(cmd):
     stdout_data, stderr_data = p.communicate()
     return p.returncode,byte2str(stdout_data),byte2str(stderr_data)
 
-class MyTest(unittest.TestCase):
+class Test1(unittest.TestCase):
     def setUp(self):
         create_file()
-    def test_1(self):
+    def test_exec_preview(self):
         cmd = "python conv_encoding.py --start_dir test --preview --to_encoding utf-8 --pattern *.txt"
         ret,stdout,stderr = exec_command(cmd)
         self.assertEqual(ret,0)
         self.assertEqual(len(stderr), 0)
         print( stdout)
-        self.assertEqual(get_encoding("test/cp932.txt"),"cp932")
-    def test_2(self):
+        self.assertEqual(get_encoding("test/cp932.txt")[0],"shift_jis")
+    def test_exec(self):
         cmd = "python conv_encoding.py --start_dir test --to_encoding utf-8 --pattern *.txt"
         ret,stdout,stderr = exec_command(cmd)
         self.assertEqual(ret,0)
         self.assertEqual(len(stderr), 0)
         print( stdout)
-        self.assertEqual(get_encoding("test/cp932.txt"),"utf-8")
+        self.assertEqual(get_encoding("test/cp932.txt")[0],"utf-8")
+        
+    def test_call(self):
+        process("test","utf-8",False,"*.txt")
+        self.assertEqual(get_encoding("test/cp932.txt")[0],"utf-8")
+        
     def tearDown(self):
         pass
 
 if __name__ == '__main__':
-    unittest.main()
+    #unittest.main()
+    suite = unittest.TestSuite()
+    suite.addTest(Test1('test_call'))
+    unittest.TextTestRunner(verbosity=2).run(suite)
