@@ -1,3 +1,4 @@
+#/usr/bin/env python3
 # coding:utf-8
 '''
     ファイルを再帰的に指定文字コードに変換
@@ -71,7 +72,7 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     count =0
     file_infos=[]
     for path in files:
-        if not is_match_patterns_fnmatch(path, pattern.split()):
+        if not is_match_patterns_fnmatch(path, pattern.split(',')):
             continue
         try:
             encoding,data = get_encoding(path)
