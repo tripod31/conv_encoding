@@ -19,7 +19,7 @@ conv_encoding.py
 
 ####usage
 
-    python conv_encoding.py --start_dir [ディレクトリ] --pattern [ファイル名のパターン、正規表現]  
+    python conv_encoding.py --start_dir [ディレクトリ] --pattern [ファイル名のパターン、ワイルドカード]  
         --to_encoding [変換先エンコード名]
         --to_eol [変換先改行コード]
         --preview

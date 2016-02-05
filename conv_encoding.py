@@ -89,7 +89,7 @@ if __name__ == '__main__':
     #引数
     parser = argparse.ArgumentParser()
     parser.add_argument('--start_dir'   ,default=".")       
-    parser.add_argument('--pattern'     ,default="\.txt$"   ,help="pattern of name of file which are processed")  #必須でない引数
+    parser.add_argument('--pattern'     ,default="*.txt"   ,help="pattern of name of file which are processed")  #必須でない引数
     parser.add_argument('--to_encoding' ,default="cp932")   
     parser.add_argument('--to_eol'      ,default='skip'       
                                         ,help="specify end of line,'skip'=leave eol as is,'CRLF','LF'")

@@ -78,7 +78,7 @@ class MyForm(QtGui.QMainWindow):
             settings.beginGroup("form_value")
             settings.setValue("start_dir", start_dir)
             settings.setValue("to_encoding", to_encoding)
-            settings.setValue("to_enl", to_eol)
+            settings.setValue("to_eol", to_eol)
             settings.setValue("preview", preview)
             settings.setValue("pattern", pattern)
             settings.setValue("geometry",self.saveGeometry())    
