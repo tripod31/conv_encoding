@@ -103,7 +103,7 @@
    </property>
    <widget class="QMenu" name="menuView">
     <property name="title">
-     <string>View</string>
+     <string>表示</string>
     </property>
     <addaction name="actionFont"/>
    </widget>
@@ -112,7 +112,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionFont">
    <property name="text">
-    <string>Font</string>
+    <string>フォント</string>
    </property>
   </action>
  </widget>

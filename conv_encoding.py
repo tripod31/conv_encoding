@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding:utf-8
 '''
-    ファイルを再帰的に指定文字コードに変換
+convert charset,end of line of files.
 '''
 import argparse
 import pprint
@@ -11,9 +11,10 @@ import re
 from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,conv_encoding,DecodeException
 
 '''
-文字列の改行コード種別を返す
-戻り値
-    'CRLF','LF','NOEOL'(改行なし)
+returns end of line
+
+returns
+    'CRLF','LF','NOEOL'(no end of line)
 '''
 def get_eol(s):
     if re.search('\r\n',s):
@@ -25,7 +26,7 @@ def get_eol(s):
     return 'NOEOL'
 
 '''
-ファイルに対する処理を決定
+determin what to do to the file
 '''
 def get_todo(info,to_enc,to_eol):
     todo=[]
@@ -36,11 +37,13 @@ def get_todo(info,to_enc,to_eol):
     return todo
 
 '''
-配列の桁を最大の桁に合わせて表示
+display two dimension array
+Each column length is adjusted to max length of data
+
 arr
-    ２次元配列
+    two dimension array
 delimiter
-  列の区切り
+    delimiter of column
 '''
 def print_arr(arr,delimiter=" "):
     if len(arr)==0:
@@ -112,7 +115,7 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
                         eol = '\n'                   
                 try:
                     if to_encoding == 'skip':
-                        conv_encoding(info["path"], info['enc'],eol)    #元のエンコードを指定
+                        conv_encoding(info["path"], info['enc'],eol)    #specify original encoding
                     else:
                         conv_encoding(info["path"], to_encoding,eol)
                     count+=1
@@ -137,4 +140,4 @@ if __name__ == '__main__':
     parser.add_argument('--preview'     ,action='store_true',default=False,help="do not change files when specified")
 
     args=parser.parse_args()
-    process(**vars(args))   #namespaceをキ―ワード引数に変換  
+    process(**vars(args))   #convert namespace object to keyword arguments

@@ -15,8 +15,7 @@ from PyQt4.Qt import QFont
 
 class MyForm(QtGui.QMainWindow):
     '''
-    設定ファイル
-    スクリプトと同じディレクトリに置く
+    settings file
     '''
     SAVE_FILE=os.path.join(os.path.dirname(__file__), "form_value.txt")
     
@@ -39,7 +38,7 @@ class MyForm(QtGui.QMainWindow):
         self.load_settings()
         
     '''
-    window close時
+    window close event
     '''
     def closeEvent(self, *args, **kwargs):
         self.save_settings()
@@ -65,7 +64,7 @@ class MyForm(QtGui.QMainWindow):
             self.ui.centralwidget.setFont(f)    #コンテナのフォントを変えると全ての子のフォントが変わる
             
     '''
-    実行ボタン
+    execute button
     '''    
     def execute(self):
         start_dir = self.ui.lineEdit_start_dir.text()

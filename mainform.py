@@ -98,6 +98,6 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "変更先改行コード", None))
         self.pushButton_exec.setText(_translate("MainWindow", "実行", None))
         self.checkBox_preview.setText(_translate("MainWindow", "プレビュー", None))
-        self.menuView.setTitle(_translate("MainWindow", "View", None))
-        self.actionFont.setText(_translate("MainWindow", "Font", None))
+        self.menuView.setTitle(_translate("MainWindow", "表示", None))
+        self.actionFont.setText(_translate("MainWindow", "フォント", None))
 
