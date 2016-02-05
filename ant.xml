@@ -2,8 +2,8 @@
 
 <project name="antsample">
 
-  <property name="pyuic" location="D:\devel\Python34\Lib\site-packages\PyQt4\uic\pyuic.py"/>
-  <property name="cxfreeze" location="D:\devel\Python34\Scripts\cxfreeze"/>
+  <property name="pyuic" location="D:\devel\Python3\Lib\site-packages\PyQt4\uic\pyuic.py"/>
+  <property name="cxfreeze" location="D:\devel\Python3\Scripts\cxfreeze"/>
   
   <target name="pyuic">
     <exec executable="python">

@@ -64,20 +64,30 @@
      <widget class="QComboBox" name="comboBox_encoding"/>
     </item>
     <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>変更先改行コード</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QComboBox" name="comboBox_eol"/>
+    </item>
+    <item row="4" column="0">
      <widget class="QPushButton" name="pushButton_exec">
       <property name="text">
        <string>実行</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
+    <item row="4" column="1">
      <widget class="QCheckBox" name="checkBox_preview">
       <property name="text">
        <string>プレビュー</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0" colspan="2">
+    <item row="5" column="0" colspan="2">
      <widget class="QTextEdit" name="textEdit_output"/>
     </item>
    </layout>
@@ -88,7 +98,7 @@
      <x>0</x>
      <y>0</y>
      <width>752</width>
-     <height>24</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

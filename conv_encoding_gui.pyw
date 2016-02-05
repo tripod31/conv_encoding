@@ -24,6 +24,9 @@ class MyForm(QtGui.QMainWindow):
         self.ui.setupUi(self)
         self.ui.comboBox_encoding.addItem("utf-8")
         self.ui.comboBox_encoding.addItem("shift_jis")
+        self.ui.comboBox_eol.addItem("skip")
+        self.ui.comboBox_eol.addItem("CRLF")
+        self.ui.comboBox_eol.addItem("LF")
         self.ui.pushButton_dir.clicked.connect(self.choose_dir)
         self.ui.pushButton_exec.clicked.connect(self.execute)
         self.ui.lineEdit_pattern.setText("*.txt")
@@ -50,13 +53,14 @@ class MyForm(QtGui.QMainWindow):
     '''    
     def execute(self):
         start_dir = self.ui.lineEdit_start_dir.text()
-        to_encoding = self.ui.comboBox_encoding.currentText()
-        preview = self.ui.checkBox_preview.isChecked()
         pattern = self.ui.lineEdit_pattern.text()
+        to_encoding = self.ui.comboBox_encoding.currentText()
+        to_eol = self.ui.comboBox_eol.currentText()
+        preview = self.ui.checkBox_preview.isChecked()
         
         output = io.StringIO()
         sys.stdout = output
-        process(start_dir,to_encoding,preview,pattern)
+        process(start_dir,pattern,to_encoding,to_eol,preview)
         s= output.getvalue()
         sys.stdout = sys.__stdout__
         self.ui.textEdit_output.setPlainText(s)
@@ -64,6 +68,7 @@ class MyForm(QtGui.QMainWindow):
     def save_settings(self):
         start_dir = self.ui.lineEdit_start_dir.text()
         to_encoding = self.ui.comboBox_encoding.currentIndex()
+        to_eol = self.ui.comboBox_eol.currentIndex()
         preview = self.ui.checkBox_preview.isChecked()
         pattern = self.ui.lineEdit_pattern.text()
                 
@@ -73,6 +78,7 @@ class MyForm(QtGui.QMainWindow):
             settings.beginGroup("form_value")
             settings.setValue("start_dir", start_dir)
             settings.setValue("to_encoding", to_encoding)
+            settings.setValue("to_enl", to_eol)
             settings.setValue("preview", preview)
             settings.setValue("pattern", pattern)
             settings.setValue("geometry",self.saveGeometry())    
@@ -85,6 +91,7 @@ class MyForm(QtGui.QMainWindow):
             settings.beginGroup("form_value")
             self.ui.lineEdit_start_dir.setText(settings.value('start_dir'))
             self.ui.comboBox_encoding.setCurrentIndex(settings.value("to_encoding",type=int))
+            self.ui.comboBox_eol.setCurrentIndex(settings.value("to_eol",type=int))
             self.ui.checkBox_preview.setChecked(settings.value('preview',type=bool))
             self.ui.lineEdit_pattern.setText(settings.value('pattern'))
             self.restoreGeometry(settings.value("geometry"));

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\devel_open\eclipse\tools_python\src\conv_encoding\mainform.ui'
+# Form implementation generated from reading ui file 'D:\devel_open\eclipse\conv_encoding\mainform.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -55,18 +55,24 @@ class Ui_MainWindow(object):
         self.comboBox_encoding = QtGui.QComboBox(self.centralwidget)
         self.comboBox_encoding.setObjectName(_fromUtf8("comboBox_encoding"))
         self.gridLayout.addWidget(self.comboBox_encoding, 2, 1, 1, 1)
+        self.label_4 = QtGui.QLabel(self.centralwidget)
+        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.gridLayout.addWidget(self.label_4, 3, 0, 1, 1)
+        self.comboBox_eol = QtGui.QComboBox(self.centralwidget)
+        self.comboBox_eol.setObjectName(_fromUtf8("comboBox_eol"))
+        self.gridLayout.addWidget(self.comboBox_eol, 3, 1, 1, 1)
         self.pushButton_exec = QtGui.QPushButton(self.centralwidget)
         self.pushButton_exec.setObjectName(_fromUtf8("pushButton_exec"))
-        self.gridLayout.addWidget(self.pushButton_exec, 3, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_exec, 4, 0, 1, 1)
         self.checkBox_preview = QtGui.QCheckBox(self.centralwidget)
         self.checkBox_preview.setObjectName(_fromUtf8("checkBox_preview"))
-        self.gridLayout.addWidget(self.checkBox_preview, 3, 1, 1, 1)
+        self.gridLayout.addWidget(self.checkBox_preview, 4, 1, 1, 1)
         self.textEdit_output = QtGui.QTextEdit(self.centralwidget)
         self.textEdit_output.setObjectName(_fromUtf8("textEdit_output"))
-        self.gridLayout.addWidget(self.textEdit_output, 4, 0, 1, 2)
+        self.gridLayout.addWidget(self.textEdit_output, 5, 0, 1, 2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 752, 24))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 752, 26))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -83,6 +89,7 @@ class Ui_MainWindow(object):
         self.label_3.setToolTip(_translate("MainWindow", "ワイルドカード形式で設定", None))
         self.label_3.setText(_translate("MainWindow", "変更ファイルパターン", None))
         self.label_2.setText(_translate("MainWindow", "変更先エンコーディング", None))
+        self.label_4.setText(_translate("MainWindow", "変更先改行コード", None))
         self.pushButton_exec.setText(_translate("MainWindow", "実行", None))
         self.checkBox_preview.setText(_translate("MainWindow", "プレビュー", None))
 
