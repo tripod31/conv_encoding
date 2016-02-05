@@ -1,0 +1,9 @@
+.project
+.pydev*
+.settings/
+.git/
+.*.html
+*.pyc
+__pycache__
+/form_value.txt
+/test/

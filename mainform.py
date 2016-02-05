@@ -26,6 +26,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(752, 482)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        MainWindow.setFont(font)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
@@ -75,7 +78,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.textEdit_output, 5, 0, 1, 2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 752, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 752, 31))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)

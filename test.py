@@ -2,7 +2,7 @@
 import unittest
 import subprocess
 from yoshi.util import get_encoding
-from conv_encoding import process
+from conv_encoding import process,get_eol
 
 def create_file():
     f=open("test/utf8.txt","w",encoding="utf-8",newline='')
@@ -46,7 +46,9 @@ class Test1(unittest.TestCase):
         
     def test_exec_call(self):
         process("test","*.txt","utf-8",'CRLF',False)
-        self.assertEqual(get_encoding("test/cp932.txt")[0],"utf-8")
+        enc,data = get_encoding("test/cp932.txt")
+        self.assertEqual(enc,"utf-8")
+        self.assertEqual(get_eol(data),"CRLF")
         
     def tearDown(self):
         pass
