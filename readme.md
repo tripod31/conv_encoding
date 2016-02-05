@@ -2,7 +2,7 @@ conv_encoding
 =====
 指定ディレクトリ以下のファイルの文字コード、改行コードを変換するツール
 
-development enviromment
+development environment
 -----
 python3.5
 
@@ -18,7 +18,8 @@ conv_encoding.py
 
 ####usage
 
-    python conv_encoding.py --start_dir [ディレクトリ] 
+    python conv_encoding.py 
+        --start_dir [ディレクトリ] 
         --pattern [ファイル名のパターン]  
         --to_encoding [変換先エンコード名]
         --to_eol [変換先改行コード]
@@ -29,8 +30,9 @@ conv_encoding.py
 
 + pattern  
 処理するファイル名のパターン。ワイルドカードで指定する。','で区切って複数指定可  
+省略時は'*.txt'  
 例:  
-    >-pattern \*.txt,\*.py
+    >--pattern \*.txt,\*.py
 
 + to_encoding  
 変換先文字コード。  

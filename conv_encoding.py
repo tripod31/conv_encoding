@@ -41,7 +41,7 @@ display two dimension array
 Each column length is adjusted to max length of data
 
 arr
-    two dimension array
+    two dimension array,columns x rows
 delimiter
     delimiter of column
 '''
@@ -51,12 +51,13 @@ def print_arr(arr,delimiter=" "):
     
     row_len=len(arr[0])
     col_len=[0]*row_len
-    #各カラムの最大桁を求める
+
+    #get max length of columns
     for row in arr:
         for idx in range(0,row_len):
             if col_len[idx] < len(row[idx]):
                 col_len[idx] = len(row[idx])
-    #出力
+    #print
     for row in arr:
         line = ""
         for idx in range(0,row_len):
@@ -74,17 +75,25 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     files = find_all_files(start_dir)
     count =0
     file_infos=[]
+    files_undecoded=[]
     for path in files:
         if not is_match_patterns_fnmatch(path, pattern.split(',')):
             continue
         try:
             encoding,data = get_encoding(path)
         except DecodeException as e:
-            print("can't decode:"+ str(e))
+            files_undecoded.append(path)
             continue
         
         info = {'path':path,'encoding':encoding,'eol':get_eol(data)}
         file_infos.append(info)
+    
+    if len(files_undecoded)>0:
+        print("Can't decode these files.They are not precessed:")
+        for path in files_undecoded:
+            print(path)
+        print("---")
+    
     
     print("files to skip:")
     arr=[]
@@ -99,7 +108,7 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     for info in file_infos:
         todo = get_todo(info, to_encoding, to_eol)
         if len(todo)>0:
-            arr.append([info["encoding"],info['eol'],','.join(todo),info["path"]])
+            arr.append([info["encoding"],info['eol'],'change '+"".join(todo),info["path"]])
     print_arr(arr)
     print("---")
     
@@ -129,15 +138,17 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
 if __name__ == '__main__':
     pp = pprint.PrettyPrinter(indent=4)
     
-    #引数
+    #arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--start_dir'   ,default=".")       
-    parser.add_argument('--pattern'     ,default="*.txt"   ,help="pattern of name of file which are processed")  #必須でない引数
+    parser.add_argument('--pattern'     ,default="*.txt"
+                                        ,help="pattern of name of file which are processed.default is '*.txt'")
     parser.add_argument('--to_encoding' ,default="skip"
-                                        ,help="specify encoding for example 'utf-8'.'skip'=leave encoding as is")
+                                        ,help="specify encoding for example 'utf-8'.'skip'(leave encoding as is).default is 'skip'")
     parser.add_argument('--to_eol'      ,default='skip'
-                                        ,help="specify end of line,'skip'=leave eol as is,'CRLF','LF'")
-    parser.add_argument('--preview'     ,action='store_true',default=False,help="do not change files when specified")
+                                        ,help="specify end of line,'skip'(leave eol as is),'CRLF','LF'.default is 'skip'")
+    parser.add_argument('--preview'     ,action='store_true',default=False
+                                        ,help="do not change files when specified")
 
     args=parser.parse_args()
     process(**vars(args))   #convert namespace object to keyword arguments
