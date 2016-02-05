@@ -102,6 +102,9 @@ class MyForm(QtGui.QMainWindow):
             settings.endGroup()
     
     def load_settings(self):
+        if not os.path.exists(self.SAVE_FILE):
+            return
+        
         settings = QSettings(self.SAVE_FILE,
                                   QSettings.IniFormat)
         if settings.Status != QSettings.AccessError:
