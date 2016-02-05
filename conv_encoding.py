@@ -57,8 +57,9 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     
     print("files to convert:")
     for info in file_infos:
-        if len(get_todo(info, to_encoding, to_eol))>0:
-            print("%s\t%s\t%s" % (info["encoding"],info['eol'],info["path"]))
+        todo = get_todo(info, to_encoding, to_eol)
+        if len(todo)>0:
+            print("%s\t%s\t%s\t%s" % (info["encoding"],info['eol'],','.join(todo),info["path"],))
     print("---")
     
     if preview != True:
@@ -73,10 +74,6 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
                         eol = '\n'                   
                 try:
                     conv_encoding(info["path"], to_encoding,eol)
-                    if 'eol' in todo:
-                        print("converted:eol:%s->%s\t%s"%(info["eol"],to_eol,info["path"]))
-                    if 'encoding' in todo:
-                        print("converted:enc:%s->%s\t%s"%(info["encoding"],to_encoding,info["path"]))
                     count+=1
                 except Exception as e:
                     print (info["path"],':',e)
