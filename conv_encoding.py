@@ -8,7 +8,7 @@ import pprint
 import os.path
 import re
 
-from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,conv_encoding
+from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,conv_encoding,DecodeException
 
 '''
 文字列の改行コード種別を返す
@@ -76,8 +76,8 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
             continue
         try:
             encoding,data = get_encoding(path)
-        except Exception as e:
-            print("error:"+ path+ ":" + str(e))
+        except DecodeException as e:
+            print("can't decode:"+ str(e))
             continue
         
         info = {'path':path,'encoding':encoding,'eol':get_eol(data)}
