@@ -30,7 +30,7 @@ def get_todo(info,to_enc,to_eol):
     todo=[]
     if to_eol != 'skip' and info['eol'] != 'NOEOL' and info['eol'] !=to_eol:
         todo.append('eol')
-    if info['encoding'] != 'ascii' and info['encoding'] != to_enc:
+    if to_enc != 'skip' and info['encoding'] != 'ascii' and info['encoding'] != to_enc:
         todo.append('encoding')
     return todo
 
@@ -110,7 +110,10 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
                     if to_eol == 'LF':
                         eol = '\n'                   
                 try:
-                    conv_encoding(info["path"], to_encoding,eol)
+                    if to_encoding == 'skip':
+                        conv_encoding(info["path"], info['enc'],eol)    #元のエンコードを指定
+                    else:
+                        conv_encoding(info["path"], to_encoding,eol)
                     count+=1
                 except Exception as e:
                     print (info["path"],':',e)
@@ -126,8 +129,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--start_dir'   ,default=".")       
     parser.add_argument('--pattern'     ,default="*.txt"   ,help="pattern of name of file which are processed")  #必須でない引数
-    parser.add_argument('--to_encoding' ,default="cp932")   
-    parser.add_argument('--to_eol'      ,default='skip'       
+    parser.add_argument('--to_encoding' ,default="skip"
+                                        ,help="specify encoding for example 'utf-8'.'skip'=leave encoding as is")
+    parser.add_argument('--to_eol'      ,default='skip'
                                         ,help="specify end of line,'skip'=leave eol as is,'CRLF','LF'")
     parser.add_argument('--preview'     ,action='store_true',default=False,help="do not change files when specified")
 

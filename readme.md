@@ -19,10 +19,24 @@ conv_encoding.py
 
 ####usage
 
-    python conv_encoding.py --start_dir [ディレクトリ] --pattern [ファイル名のパターン、ワイルドカード]  
+    python conv_encoding.py --start_dir [ディレクトリ] 
+        --pattern [ファイル名のパターン]  
         --to_encoding [変換先エンコード名]
         --to_eol [変換先改行コード]
         --preview
+
++ start_dir  
+処理するファイルがあるディレクトリ
+
++ pattern  
+処理するファイル名のパターン。ワイルドカードで指定する。','で区切って複数して可能  
+例:  
+    >-pattern \*.txt,\*.py
+
++ to_encoding  
+変換先文字コード。  
+'utf-8','shift_jis'等  
+'skip'を指定すると変換しない  
 
 + to_eol  
 変換先改行コード。   
