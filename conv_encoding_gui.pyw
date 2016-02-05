@@ -44,6 +44,9 @@ class MyForm(QtGui.QMainWindow):
     def choose_dir(self):
         dialog = QtGui.QFileDialog()
         dialog.setFileMode(QtGui.QFileDialog.DirectoryOnly)
+        start_dir = self.ui.lineEdit_start_dir.text()
+        if os.path.exists(start_dir):
+            dialog.setDirectory(start_dir)
         if dialog.exec_():
             fileNames = dialog.selectedFiles()
             if len(fileNames)>0:
