@@ -73,7 +73,12 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     for path in files:
         if not is_match_patterns_fnmatch(path, pattern.split()):
             continue
-        encoding,data = get_encoding(path)
+        try:
+            encoding,data = get_encoding(path)
+        except Exception as e:
+            print("error:"+ path+ ":" + str(e))
+            continue
+        
         info = {'path':path,'encoding':encoding,'eol':get_eol(data)}
         file_infos.append(info)
     
@@ -85,7 +90,7 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     print_arr(arr)
     print("---")
     
-    print("files to change:")
+    print("files to convert:")
     arr=[]
     for info in file_infos:
         todo = get_todo(info, to_encoding, to_eol)
