@@ -5,13 +5,13 @@ from yoshi.util import get_encoding
 from conv_encoding import process
 
 def create_file():
-    f=open("test/utf8.txt","w",encoding="utf-8")
+    f=open("test/utf8.txt","w",encoding="utf-8",newline='')
     f.write("あああ\nいいい\n")
     f.close()
-    f=open("test/cp932.txt","w",encoding="cp932")
+    f=open("test/cp932.txt","w",encoding="cp932",newline='')
     f.write("あああ\nいいい\n")
     f.close()
-    f=open("test/ascii.txt","w",encoding="ascii")
+    f=open("test/ascii.txt","w",encoding="ascii",newline='')
     f.write("abc\ndef\n")
     f.close()
 
@@ -44,17 +44,16 @@ class Test1(unittest.TestCase):
         print( stdout)
         self.assertEqual(get_encoding("test/cp932.txt")[0],"utf-8")
         
-    def test_call(self):
-        process("test","*.txt","utf-8",None,False)
+    def test_exec_call(self):
+        process("test","*.txt","utf-8",'CRLF',False)
         self.assertEqual(get_encoding("test/cp932.txt")[0],"utf-8")
         
     def tearDown(self):
         pass
 
 if __name__ == '__main__':
-    unittest.main()
-    '''
     suite = unittest.TestSuite()
-    suite.addTest(Test1('test_call'))
+    suite.addTest(Test1('test_exec_call'))
+    #unittest.main()
     unittest.TextTestRunner(verbosity=2).run(suite)
-    '''
+    

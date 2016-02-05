@@ -52,14 +52,14 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     print("files to skip:")
     for info in file_infos:
         if len( get_todo(info, to_encoding, to_eol))==0:
-            print("%s\t%s\t%s" % (info["encoding"],info['eol'],info["path"]))
+            print("%-5s%-5s%s" % (info["encoding"],info['eol'],info["path"]))
     print("---")
     
     print("files to convert:")
     for info in file_infos:
         todo = get_todo(info, to_encoding, to_eol)
         if len(todo)>0:
-            print("%s\t%s\t%s\t%s" % (info["encoding"],info['eol'],','.join(todo),info["path"],))
+            print("%-15s%-5s%-15s%s" % (info["encoding"],info['eol'],','.join(todo),info["path"],))
     print("---")
     
     if preview != True:
@@ -78,7 +78,9 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
                 except Exception as e:
                     print (info["path"],':',e)
 
-    print (count,"files converted")
+        print (count,"files converted")
+    else:
+        print ("***preview mode***")
 
 if __name__ == '__main__':
     pp = pprint.PrettyPrinter(indent=4)
