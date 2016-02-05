@@ -35,13 +35,15 @@ conv_encoding.py
 + to_encoding  
 変換先文字コード。  
 'utf-8','shift_jis'等  
-'skip'を指定すると変換しない  
+省略時は'skip'(変換しない)  
 
 + to_eol  
 変換先改行コード。   
-CRLF,LF,skip(変換しない)
+CRLF,LF
+省略時は'skip'(変換しない)  
+
 + preview  
-実際の変換は行わない
+指定された場合、実際の変換は行わない
 
 conv_encoding_gui.pyw
 -----
