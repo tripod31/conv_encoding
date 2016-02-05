@@ -34,6 +34,34 @@ def get_todo(info,to_enc,to_eol):
         todo.append('encoding')
     return todo
 
+'''
+配列の桁を最大の桁に合わせて表示
+arr
+    ２次元配列
+delimiter
+  列の区切り
+'''
+def print_arr(arr,delimiter=" "):
+    if len(arr)==0:
+        return
+    
+    row_len=len(arr[0])
+    col_len=[0]*row_len
+    #各カラムの最大桁を求める
+    for row in arr:
+        for idx in range(0,row_len):
+            if col_len[idx] < len(row[idx]):
+                col_len[idx] = len(row[idx])
+    #出力
+    for row in arr:
+        line = ""
+        for idx in range(0,row_len):
+            if idx>0:
+                line += delimiter
+            s = row[idx] + ' ' * (col_len[idx] - len(row[idx]))
+            line +=s
+        print(line)
+    
 def process(start_dir,pattern,to_encoding,to_eol,preview):
     if not os.path.exists(start_dir):
         print("%s: does'nt exists" % start_dir )
@@ -50,16 +78,20 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
         file_infos.append(info)
     
     print("files to skip:")
+    arr=[]
     for info in file_infos:
         if len( get_todo(info, to_encoding, to_eol))==0:
-            print("%-5s%-5s%s" % (info["encoding"],info['eol'],info["path"]))
+            arr.append([info["encoding"],info['eol'],info["path"]])
+    print_arr(arr)
     print("---")
     
-    print("files to convert:")
+    print("files to change:")
+    arr=[]
     for info in file_infos:
         todo = get_todo(info, to_encoding, to_eol)
         if len(todo)>0:
-            print("%-15s%-5s%-15s%s" % (info["encoding"],info['eol'],','.join(todo),info["path"],))
+            arr.append([info["encoding"],info['eol'],','.join(todo),info["path"]])
+    print_arr(arr)
     print("---")
     
     if preview != True:
@@ -78,7 +110,7 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
                 except Exception as e:
                     print (info["path"],':',e)
 
-        print (count,"files converted")
+        print (count,"files changed")
     else:
         print ("***preview mode***")
 
