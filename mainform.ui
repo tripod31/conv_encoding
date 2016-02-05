@@ -10,20 +10,10 @@
     <height>482</height>
    </rect>
   </property>
-  <property name="font">
-   <font>
-    <pointsize>14</pointsize>
-   </font>
-  </property>
   <property name="windowTitle">
    <string>conv_encoding</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QLabel" name="label">
@@ -98,13 +88,7 @@
      </widget>
     </item>
     <item row="5" column="0" colspan="2">
-     <widget class="QTextEdit" name="textEdit_output">
-      <property name="font">
-       <font>
-        <family>ＭＳ ゴシック</family>
-       </font>
-      </property>
-     </widget>
+     <widget class="QTextEdit" name="textEdit_output"/>
     </item>
    </layout>
   </widget>
@@ -117,14 +101,20 @@
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFont">
+   <widget class="QMenu" name="menuView">
     <property name="title">
-     <string>Font</string>
+     <string>View</string>
     </property>
+    <addaction name="actionFont"/>
    </widget>
-   <addaction name="menuFont"/>
+   <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionFont">
+   <property name="text">
+    <string>Font</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

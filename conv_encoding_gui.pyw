@@ -9,7 +9,8 @@ import io
 import os
 from mainform import QtGui,Ui_MainWindow    # @UnresolvedImport
 from conv_encoding import process           # @UnresolvedImport
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings,QObject,SIGNAL
+from PyQt4.Qt import QFont
 
 class MyForm(QtGui.QMainWindow):
     '''
@@ -31,6 +32,9 @@ class MyForm(QtGui.QMainWindow):
         self.ui.pushButton_dir.clicked.connect(self.choose_dir)
         self.ui.pushButton_exec.clicked.connect(self.execute)
         self.ui.lineEdit_pattern.setText("*.txt")
+        #メニューのコールバック設定
+        QObject.connect(self.ui.actionFont, SIGNAL('triggered()'), self.choose_font)
+        
         self.load_settings()
         
     '''
@@ -52,6 +56,13 @@ class MyForm(QtGui.QMainWindow):
             if len(fileNames)>0:
                 self.ui.lineEdit_start_dir.setText(fileNames[0])
 
+    def choose_font(self):
+        cur_f = self.font()
+        f,ok = QtGui.QFontDialog.getFont(cur_f)
+        if ok:
+            self.setFont(f)
+            self.ui.centralwidget.setFont(f)    #コンテナのフォントを変えると全ての子のフォントが変わる
+            
     '''
     実行ボタン
     '''    
@@ -85,7 +96,8 @@ class MyForm(QtGui.QMainWindow):
             settings.setValue("to_eol", to_eol)
             settings.setValue("preview", preview)
             settings.setValue("pattern", pattern)
-            settings.setValue("geometry",self.saveGeometry())    
+            settings.setValue("geometry",self.saveGeometry())
+            settings.setValue("font",self.font().toString())    
             settings.endGroup()
     
     def load_settings(self):
@@ -98,7 +110,11 @@ class MyForm(QtGui.QMainWindow):
             self.ui.comboBox_eol.setCurrentIndex(settings.value("to_eol",type=int))
             self.ui.checkBox_preview.setChecked(settings.value('preview',type=bool))
             self.ui.lineEdit_pattern.setText(settings.value('pattern'))
-            self.restoreGeometry(settings.value("geometry"));
+            self.restoreGeometry(settings.value("geometry"))
+            self.font().fromString(settings.value("font"))
+            f=QFont()
+            if f.fromString(settings.value("font")):
+                self.setFont(f)
             settings.endGroup()
            
     
