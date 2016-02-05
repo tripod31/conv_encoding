@@ -1,4 +1,4 @@
-#/usr/bin/env python3
+#!/usr/bin/env python3
 # coding:utf-8
 '''
     ファイルを再帰的に指定文字コードに変換
