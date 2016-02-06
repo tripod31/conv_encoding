@@ -71,14 +71,24 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../conv_encoding_gui.pyw" line="101"/>
+        <location filename="../conv_encoding_gui.pyw" line="104"/>
         <source>Confirm</source>
-        <translation type="unfinished">確認</translation>
+        <translation>確認</translation>
     </message>
     <message>
-        <location filename="../conv_encoding_gui.pyw" line="101"/>
+        <location filename="../conv_encoding_gui.pyw" line="104"/>
         <source>Are you sure to execute?</source>
-        <translation type="unfinished">本当に実行しますか？</translation>
+        <translation>本当に実行しますか？</translation>
+    </message>
+    <message>
+        <location filename="../conv_encoding_gui.pyw" line="83"/>
+        <source>english</source>
+        <translation>英語</translation>
+    </message>
+    <message>
+        <location filename="../conv_encoding_gui.pyw" line="84"/>
+        <source>japanese</source>
+        <translation>日本語</translation>
     </message>
 </context>
 </TS>

@@ -11,7 +11,7 @@ import os
 from mainform import QtGui,Ui_MainWindow,_translate    # @UnresolvedImport
 from conv_encoding import process           # @UnresolvedImport
 from PyQt4.QtCore import QSettings,QObject,SIGNAL,QTranslator
-from PyQt4.Qt import QFont, QDialog
+from PyQt4.Qt import QFont, QDialog, QVariant
 
 #dialog
 from select_lang_form import Ui_Dialog
@@ -80,11 +80,13 @@ class MyForm(QtGui.QMainWindow):
         ui = Ui_Dialog()
         ui.setupUi(dialog)
         
-        langs = ["en","ja"]
-        ui.comboBox.addItems(langs)
-        ui.comboBox.setCurrentIndex(langs.index(self._lang))
+        ui.comboBox.addItem(_translate("MainWindow",'english',None),'en')
+        ui.comboBox.addItem(_translate("MainWindow",'japanese',None),'ja')
+        idx = ui.comboBox.findData(self._lang)
+        ui.comboBox.setCurrentIndex(idx)
         if dialog.exec_()==QDialog.Accepted:
-            lang = ui.comboBox.currentText()
+            idx = ui.comboBox.currentIndex()
+            lang = ui.comboBox.itemData(idx)
             self.set_lang(lang)
     
     '''

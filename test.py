@@ -1,10 +1,15 @@
 # coding:utf-8
 import unittest
 import subprocess
+import os
+
 from yoshi.util import get_encoding
 from conv_encoding import process,get_eol
 
 def create_file():
+    if not os.path.exists('test'):
+        os.mkdir('test')
+        
     f=open("test/utf8.txt","w",encoding="utf-8",newline='')
     f.write("あああ\nいいい\n")
     f.close()
