@@ -10,7 +10,7 @@ import io
 import os
 from mainform import QtGui,Ui_MainWindow    # @UnresolvedImport
 from conv_encoding import process           # @UnresolvedImport
-from PyQt4.QtCore import QSettings,QObject,SIGNAL
+from PyQt4.QtCore import QSettings,QObject,SIGNAL,QTranslator
 from PyQt4.Qt import QFont
 
 class MyForm(QtGui.QMainWindow):
@@ -32,10 +32,15 @@ class MyForm(QtGui.QMainWindow):
         self.ui.pushButton_dir.clicked.connect(self.choose_dir)
         self.ui.pushButton_exec.clicked.connect(self.execute)
         self.ui.lineEdit_pattern.setText("*.txt")
-        #メニューのコールバック設定
+        #set callback function for menu item
         QObject.connect(self.ui.actionFont, SIGNAL('triggered()'), self.choose_font)
         
-        self.load_settings()
+        #translations
+        self._locale = "en" #defalut locale
+        self._translator = QTranslator()
+        app.installTranslator(self._translator)
+        
+        self.load_settings()    #read settings file
         
     '''
     window close event
@@ -61,7 +66,7 @@ class MyForm(QtGui.QMainWindow):
         f,ok = QtGui.QFontDialog.getFont(cur_f)
         if ok:
             self.setFont(f)
-            self.ui.centralwidget.setFont(f)    #コンテナのフォントを変えると全ての子のフォントが変わる
+            self.ui.centralwidget.setFont(f)    #when font of container is changed,font of all child wigets are changed
             
     '''
     execute button
@@ -97,7 +102,8 @@ class MyForm(QtGui.QMainWindow):
             settings.setValue("preview", preview)
             settings.setValue("pattern", pattern)
             settings.setValue("geometry",self.saveGeometry())
-            settings.setValue("font",self.font().toString())    
+            settings.setValue("font",self.font().toString())
+            settings.setValue("locale",self._locale)   
             settings.endGroup()
     
     def load_settings(self):
@@ -118,11 +124,19 @@ class MyForm(QtGui.QMainWindow):
             f=QFont()
             if f.fromString(settings.value("font")):
                 self.setFont(f)
+            
+            self.set_locale(settings.value("locale"))
+                
             settings.endGroup()
-           
+    
+    def set_locale(self,locale):
+        if self._translator.load("conv_encoding."+locale,"translations"):
+            self._locale = locale
+            self.ui.retranslateUi(self)
     
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
+    
     form = MyForm()
     form.show()
     sys.exit(app.exec_())
