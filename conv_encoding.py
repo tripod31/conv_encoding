@@ -15,7 +15,9 @@ import gettext
 _ = gettext.translation(
         domain='conv_encoding',
         localedir=os.path.join(os.path.dirname(__file__), 'translations'),
-        fallback=True).lgettext
+        fallback=True
+        #codeset='utf-8'
+        ).lgettext
         
 '''
 returns end of line
