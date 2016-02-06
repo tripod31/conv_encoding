@@ -4,35 +4,34 @@
 
   <property name="pyuic" location="D:\devel\Python3\Lib\site-packages\PyQt4\uic\pyuic.py"/>
   <property name="lupdate" location="D:\devel\Python3\Lib\site-packages\PyQt4\pylupdate4.exe"/>
+  <property name="pygettext" location="D:\devel\Python3\tools\i18n\pygettext.py"/>
   <property name="cxfreeze" location="D:\devel\Python3\Scripts\cxfreeze"/>
-    
-  <target name="pyuic">
+  
+  <target name="create *.ui">
     <exec executable="python">
-        <arg file="${pyuic}"/>
-        <arg file="select_lang_form.ui"/>
-        <arg value="-o"/>
-        <arg file="select_lang_form.py"/>
+        <arg file="${pyuic} select_lang_form.ui -o select_lang_form.py"/>
     </exec>
     
     <exec executable="python">
-        <arg file="${pyuic}"/>
-        <arg file="mainform.ui"/>
-        <arg value="-o"/>
-        <arg file="mainform.py"/>
+        <arg line="${pyuic} mainform.ui -o mainform.py"/>
     </exec>
   </target>
     
-  <target name="lupdate">
+  <target name="update *.ts">
     <exec executable="${lupdate}">
-        <arg value="-verbose"/>
-        <arg file="conv_encoding.pro"/>
+        <arg line="-verbose conv_encoding.pro"/>
     </exec>
   </target>
-    
+  
+  <target name="create *.po">
+    <exec executable="python">
+        <arg line="${pygettext} -o get_encoding.po -p translations\ja\LC_MESSAGES conv_encoding.py"/>
+    </exec>
+  </target>
+     
   <target name="cxfreeze">
     <exec executable="python">
-        <arg file="${cxfreeze}"/>
-        <arg value="conv_encoding_gui.pyw"/>
+        <arg line="${cxfreeze} conv_encoding_gui.pyw"/>
     </exec>
   </target>
    

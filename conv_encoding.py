@@ -10,6 +10,13 @@ import re
 
 from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,conv_encoding,DecodeException
 
+import gettext
+
+_ = gettext.translation(
+        domain='conv_encoding',
+        localedir=os.path.join(os.path.dirname(__file__), 'translations'),
+        fallback=True).lgettext
+        
 '''
 returns end of line
 
@@ -69,7 +76,7 @@ def print_arr(arr,delimiter=" "):
     
 def process(start_dir,pattern,to_encoding,to_eol,preview):
     if not os.path.exists(start_dir):
-        print("%s: does'nt exists" % start_dir )
+        print(_("%s: does'nt exists") % start_dir )
         return
     
     files = find_all_files(start_dir)
@@ -89,13 +96,13 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
         file_infos.append(info)
     
     if len(files_undecoded)>0:
-        print("Can't decode these files.They are not precessed:")
+        print(_("Can't decode these files.They are not precessed:"))
         for path in files_undecoded:
             print(path)
         print("---")
     
     
-    print("files to skip:")
+    print(_("files to skip:"))
     arr=[]
     for info in file_infos:
         if len( get_todo(info, to_encoding, to_eol))==0:
@@ -103,7 +110,7 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     print_arr(arr)
     print("---")
     
-    print("files to convert:")
+    print(_("files to convert:"))
     arr=[]
     for info in file_infos:
         todo = get_todo(info, to_encoding, to_eol)
@@ -131,9 +138,9 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
                 except Exception as e:
                     print (info["path"],':',e)
 
-        print (count,"files changed")
+        print (count,_("files changed"))
     else:
-        print ("***preview mode***")
+        print (_("***preview mode***"))
 
 if __name__ == '__main__':
     pp = pprint.PrettyPrinter(indent=4)
@@ -142,13 +149,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--start_dir'   ,default=".")       
     parser.add_argument('--pattern'     ,default="*.txt"
-                                        ,help="pattern of name of file which are processed.default is '*.txt'")
+                                        ,help=_("pattern of name of file which are processed.default is '*.txt'"))
     parser.add_argument('--to_encoding' ,default="skip"
-                                        ,help="specify encoding for example 'utf-8'.'skip'(leave encoding as is).default is 'skip'")
+                                        ,help=_("specify encoding for example 'utf-8'.or'skip'(leave encoding as is).default is 'skip'"))
     parser.add_argument('--to_eol'      ,default='skip'
-                                        ,help="specify end of line,'skip'(leave eol as is),'CRLF','LF'.default is 'skip'")
+                                        ,help=_("specify end of line,'skip'(leave eol as is),'CRLF','LF'.default is 'skip'"))
     parser.add_argument('--preview'     ,action='store_true',default=False
-                                        ,help="do not change files when specified")
+                                        ,help=_("do not change files when specified"))
 
     args=parser.parse_args()
     process(**vars(args))   #convert namespace object to keyword arguments

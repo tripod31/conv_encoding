@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2016-02-06 15:56+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=cp932\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: conv_encoding.py:79
+msgid "%s: does'nt exists"
+msgstr "%s: がありません"
+
+#: conv_encoding.py:99
+msgid "Can't decode these files.They are not precessed:"
+msgstr "これらのファイルは読み込ないため処理されません。:"
+
+#: conv_encoding.py:105
+msgid "files to skip:"
+msgstr "処理されないファイル:"
+
+#: conv_encoding.py:113
+msgid "files to convert:"
+msgstr "処理されるファイル:"
+
+#: conv_encoding.py:141
+msgid "files changed"
+msgstr "ファイル 変更されました"
+
+#: conv_encoding.py:143
+msgid "***preview mode***"
+msgstr "***プレビューモード***"
+
+#: conv_encoding.py:152
+msgid "pattern of name of file which are processed.default is '*.txt'"
+msgstr "処理されるファイルのファイル名のパターン。デフォルトは'*.txt'"
+
+#: conv_encoding.py:154
+msgid "specify encoding for example 'utf-8'.or'skip'(leave encoding as is).default is 'skip'"
+msgstr "変換先のエンコード名。例えば'utf-8'。または'skip'(エンコードを変更しない)。デフォルトは'skip'"
+
+#: conv_encoding.py:156
+msgid "specify end of line,'skip'(leave eol as is),'CRLF','LF'.default is 'skip'"
+msgstr "変換先の改行。'skip'(改行を変更しない),'CRLF','LF'。デフォルトは'skip'"
+
+#: conv_encoding.py:158
+msgid "do not change files when specified"
+msgstr "指定時はファイルを変更しない"
+
