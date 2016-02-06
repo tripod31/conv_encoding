@@ -4,59 +4,64 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainform.py" line="92"/>
+        <location filename="../mainform.py" line="95"/>
         <source>conv_encoding</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="mainform.py" line="93"/>
+        <location filename="../mainform.py" line="96"/>
         <source>start directory</source>
-        <translation type="unfinished">開始ディレクトリ</translation>
+        <translation>開始ディレクトリ</translation>
     </message>
     <message>
-        <location filename="mainform.py" line="95"/>
+        <location filename="../mainform.py" line="98"/>
         <source>wild card format</source>
-        <translation type="unfinished">ワイルドカード形式</translation>
+        <translation>ワイルドカード形式</translation>
     </message>
     <message>
-        <location filename="mainform.py" line="96"/>
+        <location filename="../mainform.py" line="99"/>
         <source>file name pattern</source>
-        <translation type="unfinished">ファイル名パターン</translation>
+        <translation>ファイル名パターン</translation>
     </message>
     <message>
-        <location filename="mainform.py" line="97"/>
+        <location filename="../mainform.py" line="100"/>
         <source>encoding</source>
-        <translation type="unfinished">変換先エンコード名</translation>
+        <translation>変換先エンコード名</translation>
     </message>
     <message>
-        <location filename="mainform.py" line="98"/>
+        <location filename="../mainform.py" line="101"/>
         <source>end of line</source>
-        <translation type="unfinished">変換先改行コード</translation>
+        <translation>変換先改行コード</translation>
     </message>
     <message>
-        <location filename="mainform.py" line="99"/>
+        <location filename="../mainform.py" line="102"/>
         <source>execute</source>
-        <translation type="unfinished">実行</translation>
+        <translation>実行</translation>
     </message>
     <message>
-        <location filename="mainform.py" line="100"/>
+        <location filename="../mainform.py" line="103"/>
         <source>preview</source>
-        <translation type="unfinished">プレビュー</translation>
+        <translation>プレビュー</translation>
     </message>
     <message>
-        <location filename="mainform.py" line="101"/>
+        <location filename="../mainform.py" line="104"/>
         <source>View</source>
-        <translation type="unfinished">表示</translation>
+        <translation>表示</translation>
     </message>
     <message>
-        <location filename="mainform.py" line="102"/>
+        <location filename="../mainform.py" line="105"/>
         <source>Font</source>
-        <translation type="unfinished">フォント</translation>
+        <translation>フォント</translation>
     </message>
     <message>
-        <location filename="mainform.py" line="94"/>
+        <location filename="../mainform.py" line="97"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainform.py" line="106"/>
+        <source>Language</source>
+        <translation>言語</translation>
     </message>
 </context>
 </TS>

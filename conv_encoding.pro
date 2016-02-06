@@ -1,3 +1,3 @@
 SOURCES      = mainform.py
-TRANSLATIONS = translations\conv_encoding_ja.ts
+TRANSLATIONS = translations\conv_encoding.ja_JP.ts
  
