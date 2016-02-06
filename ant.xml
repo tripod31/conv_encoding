@@ -10,7 +10,7 @@
   
   <target name="create *.py from *.ui">
     <exec executable="python">
-        <arg file="${pyuic} select_lang_form.ui -o select_lang_form.py"/>
+        <arg line="${pyuic} select_lang_form.ui -o select_lang_form.py"/>
     </exec>
     
     <exec executable="python">

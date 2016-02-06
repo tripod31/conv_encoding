@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>752</width>
-    <height>482</height>
+    <width>875</width>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>conv_encoding</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
@@ -73,22 +73,28 @@
     <item row="3" column="1">
      <widget class="QComboBox" name="comboBox_eol"/>
     </item>
-    <item row="4" column="0">
-     <widget class="QPushButton" name="pushButton_exec">
-      <property name="text">
-       <string>execute</string>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="1">
-     <widget class="QCheckBox" name="checkBox_preview">
-      <property name="text">
-       <string>preview</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0" colspan="2">
      <widget class="QTextEdit" name="textEdit_output"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QWidget" name="widget" native="true">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButton_preview">
+         <property name="text">
+          <string>preview</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pushButton_exec">
+         <property name="text">
+          <string>execute</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -97,7 +103,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>752</width>
+     <width>875</width>
      <height>26</height>
     </rect>
    </property>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\devel_open\eclipse\conv_encoding\select_lang_form.ui'
+# Form implementation generated from reading ui file 'select_lang_form.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #

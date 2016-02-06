@@ -36,8 +36,9 @@ class MyForm(QtGui.QMainWindow):
          
         #set callback for widgets     
         self.ui.pushButton_dir.clicked.connect(self.choose_dir)
-        self.ui.pushButton_exec.clicked.connect(self.execute)
-
+        self.ui.pushButton_exec.clicked.connect(self.execClick)
+        self.ui.pushButton_preview.clicked.connect(self.previewClick)
+        
         #set callback function for menu item
         QObject.connect(self.ui.actionFont, SIGNAL('triggered()'), self.choose_font)
         QObject.connect(self.ui.actionLanguage, SIGNAL('triggered()'), self.select_lang)
@@ -91,13 +92,19 @@ class MyForm(QtGui.QMainWindow):
     
     '''
     execute button
-    '''    
-    def execute(self):
+    '''
+            
+    def execClick(self):
+        self.execute(False)
+    
+    def previewClick(self):
+        self.execute(True)
+        
+    def execute(self,preview):
         start_dir = self.ui.lineEdit_start_dir.text()
         pattern = self.ui.lineEdit_pattern.text()
         to_encoding = self.ui.comboBox_encoding.currentText()
         to_eol = self.ui.comboBox_eol.currentText()
-        preview = self.ui.checkBox_preview.isChecked()
         
         #confirm
         if not preview:
@@ -121,7 +128,6 @@ class MyForm(QtGui.QMainWindow):
         start_dir = self.ui.lineEdit_start_dir.text()
         to_encoding = self.ui.comboBox_encoding.currentIndex()
         to_eol = self.ui.comboBox_eol.currentIndex()
-        preview = self.ui.checkBox_preview.isChecked()
         pattern = self.ui.lineEdit_pattern.text()
                 
         settings = QSettings(self.SAVE_FILE,
@@ -131,7 +137,6 @@ class MyForm(QtGui.QMainWindow):
             settings.setValue("start_dir", start_dir)
             settings.setValue("to_encoding", to_encoding)
             settings.setValue("to_eol", to_eol)
-            settings.setValue("preview", preview)
             settings.setValue("pattern", pattern)
             settings.setValue("geometry",self.saveGeometry())
             settings.setValue("font",self.font().toString())
@@ -149,7 +154,6 @@ class MyForm(QtGui.QMainWindow):
             self.ui.lineEdit_start_dir.setText(settings.value('start_dir'))
             self.ui.comboBox_encoding.setCurrentIndex(settings.value("to_encoding",type=int))
             self.ui.comboBox_eol.setCurrentIndex(settings.value("to_eol",type=int))
-            self.ui.checkBox_preview.setChecked(settings.value('preview',type=bool))
             self.ui.lineEdit_pattern.setText(settings.value('pattern'))
             self.restoreGeometry(settings.value("geometry"))
             self.font().fromString(settings.value("font"))
