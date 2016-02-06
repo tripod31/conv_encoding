@@ -149,7 +149,8 @@ if __name__ == '__main__':
 
     #arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--start_dir'   ,default=".")       
+    parser.add_argument('--start_dir'   ,default="."
+                                        ,help=_("directory where files are.default is current directory."))       
     parser.add_argument('--pattern'     ,default="*.txt"
                                         ,help=_("pattern of name of file which are processed.default is '*.txt'"))
     parser.add_argument('--to_encoding' ,default="skip"

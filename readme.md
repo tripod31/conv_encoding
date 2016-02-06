@@ -24,7 +24,7 @@ Command line tool.
     
     optional arguments:
       -h, --help            show this help message and exit
-      --start_dir START_DIR
+      --start_dir START_DIR directory where files are.default is current directory.
       --pattern PATTERN     pattern of name of file which are processed.default is '*.txt'
       --to_encoding TO_ENCODING
                             specify encoding for example 'utf-8'.or'skip'(leave encoding as is).

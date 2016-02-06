@@ -24,7 +24,7 @@ conv_encoding.py
     
     optional arguments:
       -h, --help            show this help message and exit
-      --start_dir START_DIR
+      --start_dir START_DIR ファイルがあるディレクトリ。デフォルトはカレントディレクトリ。
       --pattern PATTERN     処理されるファイルのファイル名のパターン。デフォルトは'*.txt'
       --to_encoding TO_ENCODING
                             変換先のエンコード名。例えば'utf-8'。または'skip'(エンコードを変更しない)。デフォルトは'skip'

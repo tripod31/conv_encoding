@@ -162,7 +162,8 @@ class MyForm(QtGui.QMainWindow):
             settings.endGroup()
     
     def set_lang(self,lang):
-        if self._translator.load("conv_encoding."+lang,"translations") or lang == "en":
+        if self._translator.load("conv_encoding."+lang,
+                                 os.path.join(os.path.dirname(__file__), 'translations')) or lang == "en":
             self._lang = lang
             self.ui.retranslateUi(self)
     

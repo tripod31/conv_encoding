@@ -39,6 +39,9 @@ msgstr "ファイル 変更されました"
 msgid "***preview mode***"
 msgstr "***プレビューモード***"
 
+msgid "directory where files are.default is current directory."
+msgstr "ファイルがあるディレクトリ。デフォルトはカレントディレクトリ。"
+
 #: conv_encoding.py:152
 msgid "pattern of name of file which are processed.default is '*.txt'"
 msgstr "処理されるファイルのファイル名のパターン。デフォルトは'*.txt'"
