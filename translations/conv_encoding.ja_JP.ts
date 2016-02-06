@@ -2,12 +2,15 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="ja_JP">
 <context>
-    <name>MainWindow</name>
+    <name>Dialog</name>
     <message>
-        <location filename="../mainform.py" line="95"/>
-        <source>conv_encoding</source>
-        <translation></translation>
+        <location filename="../select_lang_form.py" line="44"/>
+        <source>select language</source>
+        <translation>言語を選択</translation>
     </message>
+</context>
+<context>
+    <name>MainWindow</name>
     <message>
         <location filename="../mainform.py" line="96"/>
         <source>start directory</source>
@@ -54,14 +57,19 @@
         <translation>フォント</translation>
     </message>
     <message>
-        <location filename="../mainform.py" line="97"/>
-        <source>...</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../mainform.py" line="106"/>
         <source>Language</source>
         <translation>言語</translation>
+    </message>
+    <message>
+        <location filename="../mainform.py" line="95"/>
+        <source>conv_encoding</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainform.py" line="97"/>
+        <source>...</source>
+        <translation></translation>
     </message>
 </context>
 </TS>

@@ -6,7 +6,16 @@
   <property name="lupdate" location="D:\devel\Python3\Lib\site-packages\PyQt4\pylupdate4.exe"/>
   <property name="cxfreeze" location="D:\devel\Python3\Scripts\cxfreeze"/>
   
-  <target name="pyuic">
+  <target name="pyuic/select_lang_form">
+    <exec executable="python">
+        <arg file="${pyuic}"/>
+        <arg file="select_lang_form.ui"/>
+        <arg value="-o"/>
+        <arg file="select_lang_form.py"/>
+    </exec>
+  </target>
+  
+  <target name="pyuic/mainform">
     <exec executable="python">
         <arg file="${pyuic}"/>
         <arg file="mainform.ui"/>
@@ -14,7 +23,7 @@
         <arg file="mainform.py"/>
     </exec>
   </target>
-  
+    
   <target name="lupdate">
     <exec executable="${lupdate}">
         <arg value="-verbose"/>

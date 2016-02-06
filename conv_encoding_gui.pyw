@@ -11,7 +11,10 @@ import os
 from mainform import QtGui,Ui_MainWindow    # @UnresolvedImport
 from conv_encoding import process           # @UnresolvedImport
 from PyQt4.QtCore import QSettings,QObject,SIGNAL,QTranslator
-from PyQt4.Qt import QFont
+from PyQt4.Qt import QFont, QDialog
+
+#dialog
+from select_lang_form import Ui_Dialog
 
 class MyForm(QtGui.QMainWindow):
     '''
@@ -29,14 +32,18 @@ class MyForm(QtGui.QMainWindow):
         self.ui.comboBox_eol.addItem("skip")
         self.ui.comboBox_eol.addItem("CRLF")
         self.ui.comboBox_eol.addItem("LF")
+        self.ui.lineEdit_pattern.setText("*.txt")
+         
+        #set callback for widgets     
         self.ui.pushButton_dir.clicked.connect(self.choose_dir)
         self.ui.pushButton_exec.clicked.connect(self.execute)
-        self.ui.lineEdit_pattern.setText("*.txt")
+
         #set callback function for menu item
         QObject.connect(self.ui.actionFont, SIGNAL('triggered()'), self.choose_font)
+        QObject.connect(self.ui.actionLanguage, SIGNAL('triggered()'), self.select_lang)
         
         #translations
-        self._locale = "en" #defalut locale
+        self._lang = "en" #defalut lang
         self._translator = QTranslator()
         app.installTranslator(self._translator)
         
@@ -67,7 +74,19 @@ class MyForm(QtGui.QMainWindow):
         if ok:
             self.setFont(f)
             self.ui.centralwidget.setFont(f)    #when font of container is changed,font of all child wigets are changed
-            
+    
+    def select_lang(self):
+        dialog = QDialog()
+        ui = Ui_Dialog()
+        ui.setupUi(dialog)
+        
+        langs = ["en","ja_JP"]
+        ui.comboBox.addItems(langs)
+        ui.comboBox.setCurrentIndex(langs.index(self._lang))
+        if dialog.exec_()==QDialog.Accepted:
+            lang = ui.comboBox.currentText()
+            self.set_lang(lang)
+    
     '''
     execute button
     '''    
@@ -103,7 +122,7 @@ class MyForm(QtGui.QMainWindow):
             settings.setValue("pattern", pattern)
             settings.setValue("geometry",self.saveGeometry())
             settings.setValue("font",self.font().toString())
-            settings.setValue("locale",self._locale)   
+            settings.setValue("lang",self._lang)   
             settings.endGroup()
     
     def load_settings(self):
@@ -125,13 +144,13 @@ class MyForm(QtGui.QMainWindow):
             if f.fromString(settings.value("font")):
                 self.setFont(f)
             
-            self.set_locale(settings.value("locale"))
+            self.set_lang(settings.value("lang"))
                 
             settings.endGroup()
     
-    def set_locale(self,locale):
-        if self._translator.load("conv_encoding."+locale,"translations"):
-            self._locale = locale
+    def set_lang(self,lang):
+        if self._translator.load("conv_encoding."+lang,"translations") or lang == "en":
+            self._lang = lang
             self.ui.retranslateUi(self)
     
 if __name__ == "__main__":
