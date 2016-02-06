@@ -118,7 +118,7 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     for info in file_infos:
         todo = get_todo(info, to_encoding, to_eol)
         if len(todo)>0:
-            arr.append([info["encoding"],info['eol'],'change '+"".join(todo),info["path"]])
+            arr.append([info["encoding"],info['eol'],'change '+",".join(todo),info["path"]])
     print_arr(arr)
     print("---")
     

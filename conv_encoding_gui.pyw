@@ -11,7 +11,7 @@ import os
 from mainform import QtGui,Ui_MainWindow,_translate    # @UnresolvedImport
 from conv_encoding import process           # @UnresolvedImport
 from PyQt4.QtCore import QSettings,QObject,SIGNAL,QTranslator
-from PyQt4.Qt import QFont, QDialog, QVariant
+from PyQt4.Qt import QFont, QDialog
 
 #dialog
 from select_lang_form import Ui_Dialog

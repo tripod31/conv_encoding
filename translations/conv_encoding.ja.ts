@@ -16,32 +16,32 @@
         <translation>開始ディレクトリ</translation>
     </message>
     <message>
-        <location filename="../mainform.py" line="98"/>
+        <location filename="../mainform.py" line="102"/>
         <source>wild card format</source>
         <translation>ワイルドカード形式</translation>
     </message>
     <message>
-        <location filename="../mainform.py" line="99"/>
+        <location filename="../mainform.py" line="103"/>
         <source>file name pattern</source>
         <translation>ファイル名パターン</translation>
     </message>
     <message>
-        <location filename="../mainform.py" line="100"/>
+        <location filename="../mainform.py" line="98"/>
         <source>encoding</source>
         <translation>変換先エンコード名</translation>
     </message>
     <message>
-        <location filename="../mainform.py" line="101"/>
+        <location filename="../mainform.py" line="99"/>
         <source>end of line</source>
         <translation>変換先改行コード</translation>
     </message>
     <message>
-        <location filename="../mainform.py" line="102"/>
+        <location filename="../mainform.py" line="100"/>
         <source>execute</source>
         <translation>実行</translation>
     </message>
     <message>
-        <location filename="../mainform.py" line="103"/>
+        <location filename="../mainform.py" line="101"/>
         <source>preview</source>
         <translation>プレビュー</translation>
     </message>
@@ -71,22 +71,22 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../conv_encoding_gui.pyw" line="104"/>
+        <location filename="../conv_encoding_gui.pyw" line="111"/>
         <source>Confirm</source>
         <translation>確認</translation>
     </message>
     <message>
-        <location filename="../conv_encoding_gui.pyw" line="104"/>
+        <location filename="../conv_encoding_gui.pyw" line="111"/>
         <source>Are you sure to execute?</source>
         <translation>本当に実行しますか？</translation>
     </message>
     <message>
-        <location filename="../conv_encoding_gui.pyw" line="83"/>
+        <location filename="../conv_encoding_gui.pyw" line="84"/>
         <source>english</source>
         <translation>英語</translation>
     </message>
     <message>
-        <location filename="../conv_encoding_gui.pyw" line="84"/>
+        <location filename="../conv_encoding_gui.pyw" line="85"/>
         <source>japanese</source>
         <translation>日本語</translation>
     </message>
