@@ -5,17 +5,15 @@
   <property name="pyuic" location="D:\devel\Python3\Lib\site-packages\PyQt4\uic\pyuic.py"/>
   <property name="lupdate" location="D:\devel\Python3\Lib\site-packages\PyQt4\pylupdate4.exe"/>
   <property name="cxfreeze" location="D:\devel\Python3\Scripts\cxfreeze"/>
-  
-  <target name="pyuic/select_lang_form">
+    
+  <target name="pyuic">
     <exec executable="python">
         <arg file="${pyuic}"/>
         <arg file="select_lang_form.ui"/>
         <arg value="-o"/>
         <arg file="select_lang_form.py"/>
     </exec>
-  </target>
-  
-  <target name="pyuic/mainform">
+    
     <exec executable="python">
         <arg file="${pyuic}"/>
         <arg file="mainform.ui"/>
