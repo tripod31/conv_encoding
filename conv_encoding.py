@@ -134,12 +134,12 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
                         eol = '\n'                   
                 try:
                     if to_encoding == 'skip':
-                        conv_encoding(info["path"], info['enc'],eol)    #specify original encoding
+                        conv_encoding(info["path"], info['encoding'],eol)    #specify original encoding
                     else:
                         conv_encoding(info["path"], to_encoding,eol)
                     count+=1
                 except Exception as e:
-                    print (info["path"],':',e)
+                    print (info["path"]+':'+str(e))
 
         print (count,_("files changed"))
     else:

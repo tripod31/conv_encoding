@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="ja_JP">
+<!DOCTYPE TS><TS version="2.0" language="ja_JP" sourcelanguage="">
 <context>
     <name>Dialog</name>
     <message>
@@ -70,6 +69,16 @@
         <location filename="../mainform.py" line="97"/>
         <source>...</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="../conv_encoding_gui.pyw" line="101"/>
+        <source>Confirm</source>
+        <translation type="unfinished">確認</translation>
+    </message>
+    <message>
+        <location filename="../conv_encoding_gui.pyw" line="101"/>
+        <source>Are you sure to execute?</source>
+        <translation type="unfinished">本当に実行しますか？</translation>
     </message>
 </context>
 </TS>

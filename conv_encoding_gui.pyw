@@ -8,7 +8,7 @@ Created on 2015/06/16
 import sys
 import io
 import os
-from mainform import QtGui,Ui_MainWindow    # @UnresolvedImport
+from mainform import QtGui,Ui_MainWindow,_translate    # @UnresolvedImport
 from conv_encoding import process           # @UnresolvedImport
 from PyQt4.QtCore import QSettings,QObject,SIGNAL,QTranslator
 from PyQt4.Qt import QFont, QDialog
@@ -97,6 +97,17 @@ class MyForm(QtGui.QMainWindow):
         to_eol = self.ui.comboBox_eol.currentText()
         preview = self.ui.checkBox_preview.isChecked()
         
+        #confirm
+        if not preview:
+            confirmObject = QtGui.QMessageBox.question(self,
+                _translate("MainWindow", "Confirm", None),
+                _translate("MainWindow", "Are you sure to execute?", None),
+                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
+                QtGui.QMessageBox.No)
+            if confirmObject != QtGui.QMessageBox.Yes:
+                return
+        
+        os.environ['LANGUAGE']=self._lang   #does'nt work?
         output = io.StringIO()
         sys.stdout = output
         process(start_dir,pattern,to_encoding,to_eol,preview)
