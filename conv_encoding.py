@@ -4,7 +4,6 @@
 convert charset,end of line of files.
 '''
 import argparse
-import pprint
 import os.path
 import re
 
@@ -12,13 +11,15 @@ from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,con
 
 import gettext
 
-_ = gettext.translation(
-        domain='conv_encoding',
-        localedir=os.path.join(os.path.dirname(__file__), 'translations'),
-        fallback=True
-        #codeset='utf-8'
-        ).lgettext
-        
+#translation
+translation = gettext.translation(
+    domain='conv_encoding',
+    localedir=os.path.join(os.path.dirname(__file__), 'translations'),
+    fallback=True,
+    codeset='utf-8'
+    )
+_=translation.gettext
+
 '''
 returns end of line
 
@@ -145,8 +146,7 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
         print (_("***preview mode***"))
 
 if __name__ == '__main__':
-    pp = pprint.PrettyPrinter(indent=4)
-    
+
     #arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--start_dir'   ,default=".")       

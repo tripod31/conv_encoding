@@ -80,7 +80,7 @@ class MyForm(QtGui.QMainWindow):
         ui = Ui_Dialog()
         ui.setupUi(dialog)
         
-        langs = ["en","ja_JP"]
+        langs = ["en","ja"]
         ui.comboBox.addItems(langs)
         ui.comboBox.setCurrentIndex(langs.index(self._lang))
         if dialog.exec_()==QDialog.Accepted:
