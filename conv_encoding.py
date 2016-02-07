@@ -26,7 +26,7 @@ returns end of line
 returns
     'CRLF','LF','NOEOL'(no end of line)
 '''
-def get_eol(s):
+def get_eol_type(s):
     if re.search('\r\n',s):
         return 'CRLF'
     
@@ -84,7 +84,20 @@ def is_encode_ok(s,to_enc,buf_err):
         s.encode(to_enc)
         ret = True
     except UnicodeEncodeError as e:
-        buf_err.write(s[e.start:e.end])
+        msg = "'"+s[e.start:e.end]+"'"
+        eol_type = get_eol_type(s)
+        #when string is multiline,get number of line that contains error chars
+        if eol_type=='CRLF':
+            
+            lno=len(re.findall('\r\n',s[0:e.start]))+1
+        
+        if eol_type=='LF':
+            lno=len(re.findall('\n',s[0:e.start]))+1
+        
+        if eol_type != 'NOEOL':
+            msg += " at line " + str(lno)
+        
+        buf_err.write(msg)
         ret = False
     return ret
 
@@ -109,7 +122,7 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
             files_dec_ng.append(path)
             continue
         
-        info = {'path':path,'encoding':encoding,'eol':get_eol(data)}
+        info = {'path':path,'encoding':encoding,'eol':get_eol_type(data)}
         todo = get_todo(info, to_enc, to_eol)
         if len(todo)==0:
             files_skipped.append(info)
@@ -135,7 +148,7 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
     if len(files_enc_ng)>0:
         print(_("Can't encode these files.They are not processed:"))
         for info in files_enc_ng:
-            print("%s:[%s]" % (info['path'],info['err_str']))
+            print("%s [%s]" % (info['path'],info['err_str']))
         print("---")
     
     #print files to be skipped
