@@ -57,7 +57,7 @@ msgid "specify encoding for example 'utf-8'.or'skip'(leave encoding as is).defau
 msgstr "変換先のエンコード名。例えば'utf-8'。または'skip'(エンコードを変更しない)。デフォルトは'skip'"
 
 #: conv_encoding.py:156
-msgid "specify end of line,'skip'(leave eol as is),'CRLF','LF'.default is 'skip'"
+msgid "specify end of line,'skip'(leave eol as is),'CRLF','LF','CR'.default is 'skip'"
 msgstr "変換先の改行。'skip'(改行を変更しない),'CRLF','LF'。デフォルトは'skip'"
 
 #: conv_encoding.py:158

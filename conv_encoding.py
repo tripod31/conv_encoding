@@ -20,11 +20,13 @@ translation = gettext.translation(
     )
 _=translation.gettext
 
+table_eol={'CRLF':'\r\n','LF':'\n','CR':'\r'}
+
 '''
 returns end of line
 
 returns
-    'CRLF','LF','NOEOL'(no end of line)
+    'CRLF','LF','CR','NOEOL'(no end of line)
 '''
 def get_eol_type(s):
     if re.search('\r\n',s):
@@ -33,6 +35,9 @@ def get_eol_type(s):
     if re.search('\n',s):
         return 'LF'
     
+    if re.search('\r',s):
+        return 'CR'
+        
     return 'NOEOL'
 
 '''
@@ -53,25 +58,29 @@ display two dimension array
 Each column length is adjusted to max length of data
 
 arr
-    two dimension array of strings,columns(tapple) x rows(list)
+    two dimension array of strings,columns(list) x rows(list)
 format
     format of output
 '''
-def print_arr(arr,sformat):
+def print_arr(arr,p_format):
     if len(arr)==0:
         return
     
     row_len=len(arr[0])
-    col_len=[0]*row_len
+    max_len=[0]*row_len
 
     #get max length of columns
     for row in arr:
         for idx in range(0,row_len):
-            if col_len[idx] < len(row[idx]):
-                col_len[idx] = len(row[idx])
+            if max_len[idx] < len(row[idx]):
+                max_len[idx] = len(row[idx])
     #print
     for row in arr:
-        line = sformat % row
+        for idx in range(0,len(row)):
+            col = row[idx]
+            col = col + " " * (max_len[idx]-len(col))
+            row[idx]=col
+        line = p_format % tuple(row)
         print(line)
 
 '''
@@ -86,15 +95,10 @@ def is_encode_ok(s,to_enc,buf_err):
     except UnicodeEncodeError as e:
         msg = "'"+s[e.start:e.end]+"'"
         eol_type = get_eol_type(s)
-        #when string is multiline,get number of line that contains error chars
-        if eol_type=='CRLF':
-            
-            lno=len(re.findall('\r\n',s[0:e.start]))+1
-        
-        if eol_type=='LF':
-            lno=len(re.findall('\n',s[0:e.start]))+1
-        
+        #when string is multiline,get number of line that contains error chars        
         if eol_type != 'NOEOL':
+            eol = table_eol[eol_type]
+            lno=len(re.findall(eol,s[0:e.start]))+1
             msg += " at line " + str(lno)
         
         buf_err.write(msg)
@@ -132,7 +136,8 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
             #test encoding
             buf_err = io.StringIO()
             if  not is_encode_ok(data, to_enc,buf_err):
-                files_enc_ng.append({'path':path,'err_str':buf_err.getvalue()})
+                info['err_str']=buf_err.getvalue()
+                files_enc_ng.append(info)
                 continue
 
         files_processed.append(info)
@@ -147,8 +152,10 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
     #print files that can't be encoded
     if len(files_enc_ng)>0:
         print(_("Can't encode these files.They are not processed:"))
+        arr=[]
         for info in files_enc_ng:
-            print("%s [%s]" % (info['path'],info['err_str']))
+            arr.append( [info['encoding'],info['eol'],info['path'],info['err_str']])
+        print_arr(arr, "[%s/%s] %s:%s")
         print("---")
     
     #print files to be skipped
@@ -156,8 +163,8 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         print(_("files to skip:"))
         arr=[]
         for info in files_skipped:
-            arr.append((info['encoding'],info['eol'],info['path']))
-        print_arr(arr,"%s %s %s")
+            arr.append([info['encoding'],info['eol'],info['path']])
+        print_arr(arr,"[%s/%s] %s")
         print("---")
     
     #print files to be converted
@@ -166,8 +173,14 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         arr=[]
         for info in files_processed:
             todo = get_todo(info, to_enc, to_eol)
-            arr.append((info["encoding"],info['eol'],'change '+",".join(todo),info["path"]))
-        print_arr(arr,"%s %s %s %s")
+            conv = []
+            if 'encoding' in todo:
+                conv.append(to_enc)
+            if 'eol' in todo:
+                conv.append(to_eol)
+
+            arr.append([info["encoding"],info['eol'],"/".join(conv),info["path"]])
+        print_arr(arr,"[%s/%s]->[%s] %s")
         print("---")
     else:
         print(_("nothing to do."))
@@ -184,18 +197,13 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         if len(todo)>0:
             eol = None
             if 'eol' in todo:
-                if to_eol == 'CRLF':
-                    eol = '\r\n'
-                if to_eol == 'LF':
-                    eol = '\n'  
-            try:
-                if to_enc == 'skip':
-                    conv_encoding(info["path"], info['encoding'],eol)    #specify original encoding,change only end of line
-                else:
-                    conv_encoding(info["path"], to_enc,eol)
-                count+=1
-            except Exception as e:
-                print (path+":"+str(e))
+                eol = table_eol[to_eol]
+
+            if to_enc == 'skip':
+                conv_encoding(info["path"], info['encoding'],eol)    #specify original encoding,change only end of line
+            else:
+                conv_encoding(info["path"], to_enc,eol)
+            count+=1
 
     print (count,_("files changed"))        
 
@@ -210,7 +218,7 @@ if __name__ == '__main__':
     parser.add_argument('--to_encoding' ,default="skip"
                                         ,help=_("specify encoding for example 'utf-8'.or'skip'(leave encoding as is).default is 'skip'"))
     parser.add_argument('--to_eol'      ,default='skip'
-                                        ,help=_("specify end of line,'skip'(leave eol as is),'CRLF','LF'.default is 'skip'"))
+                                        ,help=_("specify end of line,'skip'(leave eol as is),'CRLF','LF','CR'.default is 'skip'"))
     parser.add_argument('--preview'     ,action='store_true',default=False
                                         ,help=_("do not change files when specified"))
 
