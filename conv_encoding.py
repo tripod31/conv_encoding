@@ -79,7 +79,7 @@ def is_encode_ok(s,to_enc,buf_err):
         msg = "'"+s[e.start:e.end]+"'"
         eol = get_eol(s)
         #when string is multiline,get number of line that contains error chars        
-        if eol != None:
+        if eol != '':
             lno=len(re.findall(eol,s[0:e.start]))+1
             msg += " at line " + str(lno)
         
