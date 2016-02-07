@@ -6,11 +6,11 @@ convert charset,end of line of files.
 import argparse
 import os.path
 import re
+import io
 
 from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,conv_encoding,DecodeException
 
 import gettext
-
 #translation
 translation = gettext.translation(
     domain='conv_encoding',
@@ -76,14 +76,17 @@ def print_arr(arr,sformat):
 
 '''
 returns if string can be encoded to the encoding,ot not
+buf_err
+    stringIO().returns error string
 '''
-def is_encode_ok(s,to_enc):
+def is_encode_ok(s,to_enc,buf_err):
     try:
         s.encode(to_enc)
-        success = True
-    except Exception:
-        success = False
-    return success
+        ret = True
+    except UnicodeEncodeError as e:
+        buf_err.write(s[e.start:e.end])
+        ret = False
+    return ret
 
 def process(start_dir,pattern,to_enc,to_eol,preview):
     if not os.path.exists(start_dir):
@@ -114,8 +117,9 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         
         if 'encoding' in todo:
             #test encoding
-            if  not is_encode_ok(data, to_enc):
-                files_enc_ng.append(path)
+            buf_err = io.StringIO()
+            if  not is_encode_ok(data, to_enc,buf_err):
+                files_enc_ng.append({'path':path,'err_str':buf_err.getvalue()})
                 continue
 
         files_processed.append(info)
@@ -130,8 +134,8 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
     #print files that can't be encoded
     if len(files_enc_ng)>0:
         print(_("Can't encode these files.They are not processed:"))
-        for path in files_enc_ng:
-            print(path)
+        for info in files_enc_ng:
+            print("%s:[%s]" % (info['path'],info['err_str']))
         print("---")
     
     #print files to be skipped
@@ -173,7 +177,7 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
                     eol = '\n'  
             try:
                 if to_enc == 'skip':
-                    conv_encoding(info["path"], info['encoding'],eol)    #specify original encoding
+                    conv_encoding(info["path"], info['encoding'],eol)    #specify original encoding,change only end of line
                 else:
                     conv_encoding(info["path"], to_enc,eol)
                 count+=1

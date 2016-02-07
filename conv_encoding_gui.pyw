@@ -113,6 +113,8 @@ class MyForm(QtGui.QMainWindow):
                 return
         
         os.environ['LANGUAGE']=self._lang   #does'nt work?
+        
+        #display standard output to textedit
         output = io.StringIO()
         sys.stdout = output
         process(start_dir,pattern,to_encoding,to_eol,preview)
