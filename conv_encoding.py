@@ -155,7 +155,7 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         arr=[]
         for info in files_enc_ng:
             arr.append( [info['encoding'],info['eol'],info['path'],info['err_str']])
-        print_arr(arr, "[%s/%s] %s:%s")
+        print_arr(arr, "[%s,%s] %s:%s")
         print("---")
     
     #print files to be skipped
@@ -164,7 +164,7 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         arr=[]
         for info in files_skipped:
             arr.append([info['encoding'],info['eol'],info['path']])
-        print_arr(arr,"[%s/%s] %s")
+        print_arr(arr,"[%s,%s] %s")
         print("---")
     
     #print files to be converted
@@ -180,7 +180,7 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
                 conv.append(to_eol)
 
             arr.append([info["encoding"],info['eol'],"/".join(conv),info["path"]])
-        print_arr(arr,"[%s/%s]->[%s] %s")
+        print_arr(arr,"[%s,%s]->[%s] %s")
         print("---")
     else:
         print(_("nothing to do."))
