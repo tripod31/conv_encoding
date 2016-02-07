@@ -28,7 +28,7 @@ conv_encoding.py
       --pattern PATTERN     処理されるファイルのファイル名のパターン。デフォルトは'*.txt'
       --to_encoding TO_ENCODING
                             変換先のエンコード名。例えば'utf-8'。または'skip'(エンコードを変更しない)。デフォルトは'skip'
-      --to_eol TO_EOL       変換先の改行。'skip'(改行を変更しない),'CRLF','LF'。デフォルトは'skip'
+      --to_eol TO_EOL       変換先の改行。'skip'(改行を変更しない),'CRLF','LF','CR'。デフォルトは'skip'
       --preview             指定時はファイルを変更しない
 
 conv_encoding_gui.pyw
