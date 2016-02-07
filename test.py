@@ -4,7 +4,7 @@ import subprocess
 import os
 
 from yoshi.util import get_encoding
-from conv_encoding import process,get_eol_type
+from conv_encoding import process,get_eol
 
 def create_file():
     if not os.path.exists('test'):
@@ -53,7 +53,7 @@ class Test1(unittest.TestCase):
         process("test","*.txt","utf-8",'CRLF',False)
         enc,data = get_encoding("test/cp932.txt")
         self.assertEqual(enc,"utf-8")
-        self.assertEqual(get_eol_type(data),"CRLF")
+        self.assertEqual(get_eol(data),'\r\n')
         
     def tearDown(self):
         pass

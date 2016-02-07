@@ -8,7 +8,7 @@ import os.path
 import re
 import io
 
-from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,conv_encoding,DecodeException
+from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,conv_encoding,DecodeException,get_eol
 
 import gettext
 #translation
@@ -20,34 +20,17 @@ translation = gettext.translation(
     )
 _=translation.gettext
 
-table_eol={'CRLF':'\r\n','LF':'\n','CR':'\r'}
-
-'''
-returns end of line
-
-returns
-    'CRLF','LF','CR','NOEOL'(no end of line)
-'''
-def get_eol_type(s):
-    if re.search('\r\n',s):
-        return 'CRLF'
-    
-    if re.search('\n',s):
-        return 'LF'
-    
-    if re.search('\r',s):
-        return 'CR'
-        
-    return 'NOEOL'
+tbl_eol = {'CRLF':'\r\n','CR':'\r','LF':'\n','NOEOL':''}
+inv_eol = {v: k for k, v in tbl_eol.items()}
 
 '''
 determin what to do to the file
 returns
     array that contains 'eol','encoding'
 '''
-def get_todo(info,to_enc,to_eol):
+def get_todo(info,to_enc,to_eol_type):
     todo=[]
-    if to_eol != 'skip' and info['eol'] != 'NOEOL' and info['eol'] !=to_eol:
+    if to_eol_type != 'skip' and info['eol_type'] != 'NOEOL' and info['eol_type'] !=to_eol_type:
         todo.append('eol')
     if to_enc != 'skip' and info['encoding'] != 'ascii' and info['encoding'] != to_enc:
         todo.append('encoding')
@@ -94,10 +77,9 @@ def is_encode_ok(s,to_enc,buf_err):
         ret = True
     except UnicodeEncodeError as e:
         msg = "'"+s[e.start:e.end]+"'"
-        eol_type = get_eol_type(s)
+        eol = get_eol(s)
         #when string is multiline,get number of line that contains error chars        
-        if eol_type != 'NOEOL':
-            eol = table_eol[eol_type]
+        if eol != None:
             lno=len(re.findall(eol,s[0:e.start]))+1
             msg += " at line " + str(lno)
         
@@ -105,7 +87,7 @@ def is_encode_ok(s,to_enc,buf_err):
         ret = False
     return ret
 
-def process(start_dir,pattern,to_enc,to_eol,preview):
+def process(start_dir,pattern,to_enc,to_eol_type,preview):
     if not os.path.exists(start_dir):
         print(_("%s: does'nt exists") % start_dir )
         return
@@ -126,8 +108,8 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
             files_dec_ng.append(path)
             continue
         
-        info = {'path':path,'encoding':encoding,'eol':get_eol_type(data)}
-        todo = get_todo(info, to_enc, to_eol)
+        info = {'path':path,'encoding':encoding,'eol_type':inv_eol[get_eol(data)]}
+        todo = get_todo(info, to_enc, to_eol_type)
         if len(todo)==0:
             files_skipped.append(info)
             continue
@@ -154,7 +136,7 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         print(_("Can't encode these files.They are not processed:"))
         arr=[]
         for info in files_enc_ng:
-            arr.append( [info['encoding'],info['eol'],info['path'],info['err_str']])
+            arr.append( [info['encoding'],info['eol_type'],info['path'],info['err_str']])
         print_arr(arr, "[%s,%s] %s:%s")
         print("---")
     
@@ -163,7 +145,7 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         print(_("files to skip:"))
         arr=[]
         for info in files_skipped:
-            arr.append([info['encoding'],info['eol'],info['path']])
+            arr.append([info['encoding'],info['eol_type'],info['path']])
         print_arr(arr,"[%s,%s] %s")
         print("---")
     
@@ -172,14 +154,14 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         print(_("files to convert:"))
         arr=[]
         for info in files_processed:
-            todo = get_todo(info, to_enc, to_eol)
+            todo = get_todo(info, to_enc, to_eol_type)
             conv = []
             if 'encoding' in todo:
                 conv.append(to_enc)
             if 'eol' in todo:
-                conv.append(to_eol)
+                conv.append(to_eol_type)
 
-            arr.append([info["encoding"],info['eol'],"/".join(conv),info["path"]])
+            arr.append([info["encoding"],info['eol_type'],"/".join(conv),info["path"]])
         print_arr(arr,"[%s,%s]->[%s] %s")
         print("---")
     else:
@@ -193,11 +175,11 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
     
     #convert
     for info in files_processed:
-        todo = get_todo(info, to_enc, to_eol)
+        todo = get_todo(info, to_enc, to_eol_type)
         if len(todo)>0:
             eol = None
             if 'eol' in todo:
-                eol = table_eol[to_eol]
+                eol = tbl_eol[to_eol_type]
 
             if to_enc == 'skip':
                 conv_encoding(info["path"], info['encoding'],eol)    #specify original encoding,change only end of line
