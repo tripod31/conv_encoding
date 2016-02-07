@@ -38,6 +38,9 @@ msgstr "処理されるファイル:"
 msgid "files changed"
 msgstr "ファイル 変更されました"
 
+msgid "nothing to do."
+msgstr "処理はありません"
+
 #: conv_encoding.py:143
 msgid "***preview mode***"
 msgstr "***プレビューモード***"
