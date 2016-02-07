@@ -20,10 +20,10 @@ msgid "%s: does'nt exists"
 msgstr "%s: がありません"
 
 #: conv_encoding.py:99
-msgid "Can't decode these files.They are not precessed:"
+msgid "Can't decode these files.They are not processed:"
 msgstr "これらのファイルは読み込めないため処理されません。:"
 
-msgid "Can't encode these files.They are not precessed:"
+msgid "Can't encode these files.They are not processed:"
 msgstr "これらのファイルは変換できないため処理されません。:"
 
 #: conv_encoding.py:105

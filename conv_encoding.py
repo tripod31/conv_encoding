@@ -92,8 +92,9 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
     
     files = find_all_files(start_dir)
     count =0
-    file_infos=[]
-    files_undecoded=[]  #files that can't be decoded
+    files_processed=[]  #files to be processed
+    files_skipped=[]    #files to be skipped
+    files_dec_ng=[]     #files that can't be decoded
     files_enc_ng =[]    #files that can't be encoded
     #gather information of files.current encoding,end of line
     for path in files:
@@ -102,51 +103,58 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         try:
             encoding,data = get_encoding(path)
         except DecodeException as e:
-            files_undecoded.append(path)
+            files_dec_ng.append(path)
             continue
         
         info = {'path':path,'encoding':encoding,'eol':get_eol(data)}
         todo = get_todo(info, to_enc, to_eol)
+        if len(todo)==0:
+            files_skipped.append(info)
+            continue
+        
         if 'encoding' in todo:
             #test encoding
             if  not is_encode_ok(data, to_enc):
                 files_enc_ng.append(path)
                 continue
-            
-        file_infos.append(info)
+
+        files_processed.append(info)
     
     #print files that can't be decoded
-    if len(files_undecoded)>0:
-        print(_("Can't decode these files.They are not precessed:"))
-        for path in files_undecoded:
+    if len(files_dec_ng)>0:
+        print(_("Can't decode these files.They are not processed:"))
+        for path in files_dec_ng:
             print(path)
         print("---")
     
     #print files that can't be encoded
     if len(files_enc_ng)>0:
-        print(_("Can't encode these files.They are not precessed:"))
+        print(_("Can't encode these files.They are not processed:"))
         for path in files_enc_ng:
             print(path)
         print("---")
     
     #print files to be skipped
-    print(_("files to skip:"))
-    arr=[]
-    for info in file_infos:
-        if len( get_todo(info, to_enc, to_eol))==0:
-            arr.append((info["encoding"],info['eol'],info["path"]))
-    print_arr(arr,"%s %s %s")
-    print("---")
+    if len(files_skipped)>0:
+        print(_("files to skip:"))
+        arr=[]
+        for info in files_skipped:
+            arr.append((info['encoding'],info['eol'],info['path']))
+        print_arr(arr,"%s %s %s")
+        print("---")
     
     #print files to be converted
-    print(_("files to convert:"))
-    arr=[]
-    for info in file_infos:
-        todo = get_todo(info, to_enc, to_eol)
-        if len(todo)>0:
+    if len(files_processed)>0:
+        print(_("files to convert:"))
+        arr=[]
+        for info in files_processed:
+            todo = get_todo(info, to_enc, to_eol)
             arr.append((info["encoding"],info['eol'],'change '+",".join(todo),info["path"]))
-    print_arr(arr,"%s %s %s %s")
-    print("---")
+        print_arr(arr,"%s %s %s %s")
+        print("---")
+    else:
+        print(_("nothing to do."))
+        return
     
     #return here if preview mode
     if preview:
@@ -154,7 +162,7 @@ def process(start_dir,pattern,to_enc,to_eol,preview):
         return
     
     #convert
-    for info in file_infos:
+    for info in files_processed:
         todo = get_todo(info, to_enc, to_eol)
         if len(todo)>0:
             eol = None
