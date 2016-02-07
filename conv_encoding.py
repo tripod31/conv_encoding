@@ -155,14 +155,18 @@ def process(start_dir,pattern,to_enc,to_eol_type,preview):
         arr=[]
         for info in files_processed:
             todo = get_todo(info, to_enc, to_eol_type)
-            conv = []
+            
             if 'encoding' in todo:
-                conv.append(to_enc)
+                msg_to_enc = to_enc
+            else:
+                msg_to_enc = info['encoding']
             if 'eol' in todo:
-                conv.append(to_eol_type)
+                msg_to_eol_type = to_eol_type
+            else:
+                msg_to_eol_type = info['eol_type']
 
-            arr.append([info["encoding"],info['eol_type'],"/".join(conv),info["path"]])
-        print_arr(arr,"[%s,%s]->[%s] %s")
+            arr.append([info["encoding"],info['eol_type'],msg_to_enc,msg_to_eol_type,info["path"]])
+        print_arr(arr,"[%s,%s]->[%s,%s] %s")
         print("---")
     else:
         print(_("nothing to do."))
