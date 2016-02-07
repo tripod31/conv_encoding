@@ -2,11 +2,11 @@ conv_encoding
 =====
 指定ディレクトリ以下のファイルの文字コード、改行コードを変換するツール
 
-development environment
+開発環境
 -----
 python3.5
 
-required libraries
+必要ライブラリ
 -----
 yoshi.util:  
 <https://github.com/tripod31/common_python>  
@@ -16,7 +16,7 @@ conv_encoding.py
 -----
 コマンドラインツール
 
-####usage
+####使用方法
 
     usage: conv_encoding.py [-h] [--start_dir START_DIR] [--pattern PATTERN]
                             [--to_encoding TO_ENCODING] [--to_eol TO_EOL]
