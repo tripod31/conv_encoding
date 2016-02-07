@@ -26,12 +26,8 @@ class MyForm(QtGui.QMainWindow):
         QtGui.QWidget.__init__(self,parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.comboBox_encoding.addItem("skip")
-        self.ui.comboBox_encoding.addItem("utf-8")
-        self.ui.comboBox_encoding.addItem("shift_jis")
-        self.ui.comboBox_eol.addItem("skip")
-        self.ui.comboBox_eol.addItem("CRLF")
-        self.ui.comboBox_eol.addItem("LF")
+        self.ui.comboBox_encoding.addItems(["skip",'utf-8','shift_jis','cp932','euc-jp'])
+        self.ui.comboBox_eol.addItems(["skip",'CRLF','LF'])
         self.ui.lineEdit_pattern.setText("*.txt")
          
         #set callback for widgets     

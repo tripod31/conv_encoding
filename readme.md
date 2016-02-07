@@ -1,6 +1,6 @@
 conv_encoding
 =====
-tool to convert charset,end of line of files that are in specified directory.
+指定ディレクトリ以下のファイルの文字コード、改行コードを変換するツール
 
 development environment
 -----
@@ -14,7 +14,7 @@ pyqt4(conv_encoding_gui.pyw)
 
 conv_encoding.py
 -----
-Command line tool.
+コマンドラインツール
 
 ####usage
 
@@ -24,15 +24,13 @@ Command line tool.
     
     optional arguments:
       -h, --help            show this help message and exit
-      --start_dir START_DIR directory where files are.default is current directory.
-      --pattern PATTERN     pattern of name of file which are processed.default is '*.txt'
+      --start_dir START_DIR ファイルがあるディレクトリ。デフォルトはカレントディレクトリ。
+      --pattern PATTERN     処理されるファイルのファイル名のパターン。デフォルトは'*.txt'
       --to_encoding TO_ENCODING
-                            specify encoding for example 'utf-8'.or'skip'(leave encoding as is).
-                            default is 'skip'
-      --to_eol TO_EOL       specify end of line,'skip'(leave eol as is),'CRLF','LF'.
-                            default is 'skip'
-      --preview             do not change files when specified
-  
+                            変換先のエンコード名。例えば'utf-8'。または'skip'(エンコードを変更しない)。デフォルトは'skip'
+      --to_eol TO_EOL       変換先の改行。'skip'(改行を変更しない),'CRLF','LF'。デフォルトは'skip'
+      --preview             指定時はファイルを変更しない
+
 conv_encoding_gui.pyw
 -----
-GUI tool.
+GUIツール

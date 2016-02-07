@@ -21,7 +21,10 @@ msgstr "%s: がありません"
 
 #: conv_encoding.py:99
 msgid "Can't decode these files.They are not precessed:"
-msgstr "これらのファイルは読み込ないため処理されません。:"
+msgstr "これらのファイルは読み込めないため処理されません。:"
+
+msgid "Can't encode these files.They are not precessed:"
+msgstr "これらのファイルは変換できないため処理されません。:"
 
 #: conv_encoding.py:105
 msgid "files to skip:"

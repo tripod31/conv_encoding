@@ -37,6 +37,8 @@ def get_eol(s):
 
 '''
 determin what to do to the file
+returns
+    array that contains 'eol','encoding'
 '''
 def get_todo(info,to_enc,to_eol):
     todo=[]
@@ -51,11 +53,11 @@ display two dimension array
 Each column length is adjusted to max length of data
 
 arr
-    two dimension array,columns x rows
-delimiter
-    delimiter of column
+    two dimension array of strings,columns(tapple) x rows(list)
+format
+    format of output
 '''
-def print_arr(arr,delimiter=" "):
+def print_arr(arr,sformat):
     if len(arr)==0:
         return
     
@@ -69,15 +71,21 @@ def print_arr(arr,delimiter=" "):
                 col_len[idx] = len(row[idx])
     #print
     for row in arr:
-        line = ""
-        for idx in range(0,row_len):
-            if idx>0:
-                line += delimiter
-            s = row[idx] + ' ' * (col_len[idx] - len(row[idx]))
-            line +=s
+        line = sformat % row
         print(line)
-    
-def process(start_dir,pattern,to_encoding,to_eol,preview):
+
+'''
+returns if string can be encoded to the encoding,ot not
+'''
+def is_encode_ok(s,to_enc):
+    try:
+        s.encode(to_enc)
+        success = True
+    except Exception:
+        success = False
+    return success
+
+def process(start_dir,pattern,to_enc,to_eol,preview):
     if not os.path.exists(start_dir):
         print(_("%s: does'nt exists") % start_dir )
         return
@@ -85,7 +93,9 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
     files = find_all_files(start_dir)
     count =0
     file_infos=[]
-    files_undecoded=[]
+    files_undecoded=[]  #files that can't be decoded
+    files_enc_ng =[]    #files that can't be encoded
+    #gather information of files.current encoding,end of line
     for path in files:
         if not is_match_patterns_fnmatch(path, pattern.split(',')):
             continue
@@ -96,54 +106,73 @@ def process(start_dir,pattern,to_encoding,to_eol,preview):
             continue
         
         info = {'path':path,'encoding':encoding,'eol':get_eol(data)}
+        todo = get_todo(info, to_enc, to_eol)
+        if 'encoding' in todo:
+            #test encoding
+            if  not is_encode_ok(data, to_enc):
+                files_enc_ng.append(path)
+                continue
+            
         file_infos.append(info)
     
+    #print files that can't be decoded
     if len(files_undecoded)>0:
         print(_("Can't decode these files.They are not precessed:"))
         for path in files_undecoded:
             print(path)
         print("---")
     
+    #print files that can't be encoded
+    if len(files_enc_ng)>0:
+        print(_("Can't encode these files.They are not precessed:"))
+        for path in files_enc_ng:
+            print(path)
+        print("---")
     
+    #print files to be skipped
     print(_("files to skip:"))
     arr=[]
     for info in file_infos:
-        if len( get_todo(info, to_encoding, to_eol))==0:
-            arr.append([info["encoding"],info['eol'],info["path"]])
-    print_arr(arr)
+        if len( get_todo(info, to_enc, to_eol))==0:
+            arr.append((info["encoding"],info['eol'],info["path"]))
+    print_arr(arr,"%s %s %s")
     print("---")
     
+    #print files to be converted
     print(_("files to convert:"))
     arr=[]
     for info in file_infos:
-        todo = get_todo(info, to_encoding, to_eol)
+        todo = get_todo(info, to_enc, to_eol)
         if len(todo)>0:
-            arr.append([info["encoding"],info['eol'],'change '+",".join(todo),info["path"]])
-    print_arr(arr)
+            arr.append((info["encoding"],info['eol'],'change '+",".join(todo),info["path"]))
+    print_arr(arr,"%s %s %s %s")
     print("---")
     
-    if preview != True:
-        for info in file_infos:
-            todo = get_todo(info, to_encoding, to_eol)
-            if len(todo)>0:
-                eol = None
-                if 'eol' in todo:
-                    if to_eol == 'CRLF':
-                        eol = '\r\n'
-                    if to_eol == 'LF':
-                        eol = '\n'                   
-                try:
-                    if to_encoding == 'skip':
-                        conv_encoding(info["path"], info['encoding'],eol)    #specify original encoding
-                    else:
-                        conv_encoding(info["path"], to_encoding,eol)
-                    count+=1
-                except Exception as e:
-                    print (info["path"]+':'+str(e))
-
-        print (count,_("files changed"))
-    else:
+    #return here if preview mode
+    if preview:
         print (_("***preview mode***"))
+        return
+    
+    #convert
+    for info in file_infos:
+        todo = get_todo(info, to_enc, to_eol)
+        if len(todo)>0:
+            eol = None
+            if 'eol' in todo:
+                if to_eol == 'CRLF':
+                    eol = '\r\n'
+                if to_eol == 'LF':
+                    eol = '\n'  
+            try:
+                if to_enc == 'skip':
+                    conv_encoding(info["path"], info['encoding'],eol)    #specify original encoding
+                else:
+                    conv_encoding(info["path"], to_enc,eol)
+                count+=1
+            except Exception as e:
+                print (path+":"+str(e))
+
+    print (count,_("files changed"))        
 
 if __name__ == '__main__':
 
