@@ -8,7 +8,7 @@ import os.path
 import re
 import io
 
-from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,conv_encoding,DecodeException,get_eol
+from yoshi.util import find_all_files,get_encoding,is_match_patterns_fnmatch,conv_encoding,DecodeException,get_eol,print_arr
 
 import gettext
 #translation
@@ -35,36 +35,6 @@ def get_todo(info,to_enc,to_eol_type):
     if to_enc != 'skip' and info['encoding'] != 'ascii' and info['encoding'] != to_enc:
         todo.append('encoding')
     return todo
-
-'''
-display two dimension array
-Each column length is adjusted to max length of data
-
-arr
-    two dimension array of strings,columns(list) x rows(list)
-format
-    format of output
-'''
-def print_arr(arr,p_format):
-    if len(arr)==0:
-        return
-    
-    row_len=len(arr[0])
-    max_len=[0]*row_len
-
-    #get max length of columns
-    for row in arr:
-        for idx in range(0,row_len):
-            if max_len[idx] < len(row[idx]):
-                max_len[idx] = len(row[idx])
-    #print
-    for row in arr:
-        for idx in range(0,len(row)):
-            col = row[idx]
-            col = col + " " * (max_len[idx]-len(col))
-            row[idx]=col
-        line = p_format % tuple(row)
-        print(line)
 
 '''
 returns if string can be encoded to the encoding,ot not
