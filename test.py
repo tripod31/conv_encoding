@@ -35,7 +35,7 @@ class Test1(unittest.TestCase):
         create_file()
         
     def test_exec_preview(self):
-        cmd = "python conv_encoding.py --start_dir test --preview --to_encoding utf-8 --pattern *.txt"
+        cmd = "python conv_encoding.py --start_dir test --preview --to_enc utf-8 --pattern *.txt"
         ret,stdout,stderr = exec_command(cmd)
         self.assertEqual(ret,0)
         self.assertEqual(len(stderr), 0)
@@ -43,14 +43,14 @@ class Test1(unittest.TestCase):
         self.assertEqual(get_encoding("test/cp932.txt")[0],"shift_jis")
     
     def test_exec(self):
-        cmd = "python conv_encoding.py --start_dir test --to_encoding utf-8 --pattern *.txt"
+        cmd = "python conv_encoding.py --start_dir test --to_enc utf-8 --pattern *.txt"
         ret,stdout,stderr = exec_command(cmd)
         self.assertEqual(ret,0)
         self.assertEqual(len(stderr), 0)
         print( stdout)
         self.assertEqual(get_encoding("test/cp932.txt")[0],"utf-8")
         
-    def test_exec_call(self):
+    def test_call(self):
         process("test","*.txt","utf-8",'CRLF',False)
         enc,data = get_encoding("test/cp932.txt")
         self.assertEqual(enc,"utf-8")
@@ -60,8 +60,9 @@ class Test1(unittest.TestCase):
         pass
 
 if __name__ == '__main__':
+    unittest.main()
+    '''
     suite = unittest.TestSuite()
     suite.addTest(Test1('test_exec_call'))
-    #unittest.main()
     unittest.TextTestRunner(verbosity=2).run(suite)
-    
+    '''

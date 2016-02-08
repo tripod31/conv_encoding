@@ -8,7 +8,7 @@
   <property name="msgfmt" location="D:\devel\Python3\tools\i18n\msgfmt.py"/>
   <property name="cxfreeze" location="D:\devel\Python3\Scripts\cxfreeze"/>
   
-  <target name="*.ui(qtdesigner) --> *.py">
+  <target name="create ui" description="*.ui(qtdesigner) --> *.py">
     <exec executable="python">
         <arg line="${pyuic} select_lang_form.ui -o select_lang_form.py"/>
     </exec>
@@ -18,19 +18,19 @@
     </exec>
   </target>
     
-  <target name="source --> *.ts(pyqt i18n)">
+  <target name ="create ts" description="source --> *.ts(pyqt i18n)">
     <exec executable="${lupdate}">
         <arg line="-verbose conv_encoding.pro"/>
     </exec>
   </target>
   
-  <target name="source --> *.po(gettext i18n)">
+  <target name="create po" description="source --> *.po(gettext i18n)">
     <exec executable="python">
         <arg line="${pygettext} -o get_encoding.po -p translations\ja\LC_MESSAGES conv_encoding.py"/>
     </exec>
   </target>
   
-  <target name="*.po --> *.mo(gettext i18n compiled)">
+  <target name="create mo" description="*.po --> *.mo(gettext i18n compiled)">
     <exec executable="python">
         <arg line="${msgfmt} translations\ja\LC_MESSAGES\conv_encoding.po"/>
     </exec>

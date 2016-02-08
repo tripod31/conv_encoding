@@ -209,4 +209,4 @@ if __name__ == '__main__':
                                         ,help=_("do not change files when specified"))
 
     args=parser.parse_args()
-    process(**vars(args))   #convert namespace object to keyword arguments
+    process(args.start_dir,args.pattern,args.to_encoding,args.to_eol,args.preview)
