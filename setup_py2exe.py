@@ -6,7 +6,6 @@ Created on 2015/06/16
 # -*- coding: utf-8 -*- 
 
 from distutils.core import setup
-import py2exe
 
 option = {
     "compressed"    :    1    ,
@@ -20,7 +19,7 @@ setup(
     },
 
     console = [
-        {"script"   :    "conv_encoding_gui.py"}
+        {"script"   :    "conv_encoding_gui.pyw"}
     ],
 
     zipfile = None

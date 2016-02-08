@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <project name="antsample">
+  <property name="app_name" value="conv_encoding"/>
 
   <property name="pyuic" location="D:\devel\Python3\Lib\site-packages\PyQt4\uic\pyuic.py"/>
   <property name="lupdate" location="D:\devel\Python3\Lib\site-packages\PyQt4\pylupdate4.exe"/>
   <property name="pygettext" location="D:\devel\Python3\tools\i18n\pygettext.py"/>
   <property name="msgfmt" location="D:\devel\Python3\tools\i18n\msgfmt.py"/>
+  
   <property name="cxfreeze" location="D:\devel\Python3\Scripts\cxfreeze"/>
   
   <target name="create ui" description="*.ui(qtdesigner) --> *.py">
@@ -26,19 +28,25 @@
   
   <target name="create po" description="source --> *.po(gettext i18n)">
     <exec executable="python">
-        <arg line="${pygettext} -o get_encoding.po -p translations\ja\LC_MESSAGES conv_encoding.py"/>
+        <arg line="${pygettext} -o get_encoding.po -p translations\ja\LC_MESSAGES ${app_name}.py"/>
     </exec>
   </target>
   
   <target name="create mo" description="*.po --> *.mo(gettext i18n compiled)">
     <exec executable="python">
-        <arg line="${msgfmt} translations\ja\LC_MESSAGES\conv_encoding.po"/>
+        <arg line="${msgfmt} translations\ja\LC_MESSAGES\${app_name}.po"/>
+    </exec>
+  
+  </target>
+    <target name="pyinstaller">
+    <exec executable="pyinstaller">
+        <arg line="${app_name}_gui.pyw --onefile --noconsole --distpath ."/>
     </exec>
   </target>
-       
+  
   <target name="cxfreeze">
     <exec executable="python">
-        <arg line="${cxfreeze} conv_encoding_gui.pyw"/>
+        <arg line="${cxfreeze} ${app_name}_gui.pyw"/>
     </exec>
   </target>
    

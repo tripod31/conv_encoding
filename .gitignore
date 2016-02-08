@@ -4,8 +4,11 @@
 .git/
 .*.html
 *.pyc
+*.spec
 __pycache__
-/form_value.txt
+form_value.txt
+qt.conf
 /test/
-/ant.xml
 /test.xml
+/build/
+/setup_py2exe.py

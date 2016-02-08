@@ -37,7 +37,12 @@ def get_todo(info,to_enc,to_eol_type):
     return todo
 
 '''
-returns if string can be encoded to the encoding,ot not
+returns if string can be encoded to the encoding,or not
+
+s
+    string
+to_enc
+    encoding
 buf_err
     stringIO().returns error string
 '''
