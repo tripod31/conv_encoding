@@ -4,8 +4,10 @@ conv_encoding
 
 Windows用実行ファイル
 -----
-*.exe  
-必要ライブラリは中に組み込まれています。
++ conv_encoding.exe  
++ conv_encoding_gui.exe(GUI)    
+
+python、必要ライブラリは中に組み込まれています。
 
 開発環境
 -----
