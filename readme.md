@@ -4,7 +4,7 @@ conv_encoding
 
 Windows用実行ファイル
 -----
-conv_encoding_gui.exe  
+*.exe  
 必要ライブラリは中に組み込まれています。
 
 開発環境

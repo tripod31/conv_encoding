@@ -38,7 +38,10 @@
     </exec>
   
   </target>
-    <target name="pyinstaller">
+    <target name="pyinstaller" description="create *.exe">
+    <exec executable="pyinstaller">
+        <arg line="${app_name}.py --onefile --distpath ."/>
+    </exec>    
     <exec executable="pyinstaller">
         <arg line="${app_name}_gui.pyw --onefile --noconsole --distpath ."/>
     </exec>
