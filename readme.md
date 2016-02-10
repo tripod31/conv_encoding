@@ -23,21 +23,21 @@ conv_encoding.py
 -----
 コマンドラインツール
 
-####使用方法
+#### 使用方法
+```
+usage: conv_encoding.py [-h] [--start_dir START_DIR] [--pattern PATTERN]
+                        [--to_encoding TO_ENCODING] [--to_eol TO_EOL]
+                        [--preview]
 
-    usage: conv_encoding.py [-h] [--start_dir START_DIR] [--pattern PATTERN]
-                            [--to_encoding TO_ENCODING] [--to_eol TO_EOL]
-                            [--preview]
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      --start_dir START_DIR ファイルがあるディレクトリ。デフォルトはカレントディレクトリ。
-      --pattern PATTERN     処理されるファイルのファイル名のパターン。デフォルトは'*.txt'
-      --to_encoding TO_ENCODING
-                            変換先のエンコード名。例えば'utf-8'。または'skip'(エンコードを変更しない)。デフォルトは'skip'
-      --to_eol TO_EOL       変換先の改行。'skip'(改行を変更しない),'CRLF','LF','CR'。デフォルトは'skip'
-      --preview             指定時はファイルを変更しない
-
+optional arguments:
+  -h, --help            show this help message and exit
+  --start_dir START_DIR ファイルがあるディレクトリ。デフォルトはカレントディレクトリ。
+  --pattern PATTERN     処理されるファイルのファイル名のパターン。デフォルトは'*.txt'
+  --to_encoding TO_ENCODING
+                        変換先のエンコード名。例えば'utf-8'。または'skip'(エンコードを変更しない)。デフォルトは'skip'
+  --to_eol TO_EOL       変換先の改行。'skip'(改行を変更しない),'CRLF','LF','CR'。デフォルトは'skip'
+  --preview             指定時はファイルを変更しない
+```
 conv_encoding_gui.pyw
 -----
 GUIツール  
